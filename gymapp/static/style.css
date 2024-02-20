@@ -1,0 +1,68 @@
+.cover{
+    background-image: url('images/third.jpg'); 
+    size: 100% 100%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size:cover;
+    background-attachment: fixed;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    height: 100vh; /* Oculta el desbordamiento vertical */
+    display: grid;
+    grid-template-rows: 1fr 1fr; /* Divide la página en dos filas iguales */
+}
+
+
+
+h1{
+    color: white;
+    text-align: center;
+    font-size: 60px;
+    text-shadow: -1.5px -1.3px 0 #000,  
+                  1.5px -1.3px 0 #000,
+                 -1.5px 1.3px 0 #000,
+                  1.5px 1.3px 0 #000;
+}
+
+.cover h1{
+    font-size: 3em;
+    margin: 10px 0;
+    padding: 0;
+    position: relative; /* Se añade posición relativa para los pseudoelementos */
+}
+
+.cover .line {
+    width: 50%; /* Ancho de las líneas */
+    height: 3px; /* Grosor de las líneas */
+    background-color: white;
+    margin: 12px auto; /* Espaciado entre las líneas */
+    box-shadow: 0px 2px 4px rgba(300, 300, 300, 8); /* Sombra debajo de las líneas */
+}
+
+div.section{
+    color: white;
+    text-align: center;
+    background-color: transparent;
+}
+
+div.log-button{
+    text-align: center;
+    display: inline-block;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra verticalmente */
+    height: 0%;
+    grid-row: 2;
+}

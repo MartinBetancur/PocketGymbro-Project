@@ -1,15 +1,15 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PocketGymbro</title>
-    {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'static/style.css' %}">
-    
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
 </head>
 <body>
     <div class="cover">
+        <img src="{% static 'images/Logo.png' %}" alt="Logo" class="logo">
         <h1>Welcome to 
             <br>
             POCKET GYMBRO
@@ -18,11 +18,22 @@
         <div class="line"></div>
     </div>
     <div class="container">
-        <h2>Create your User</h2>
-        <form method="post">
+        <h2>Login</h2>
+        <form method="POST">
             {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Register</button>
+            <div class="username">
+                <input type="text" required>
+                <label>Username</label>
+            </div>
+            <div class="username">
+                <input type="password" required>
+                <label>Password</label>
+            </div>
+            <div class="recordar">¿Forgot your password?</div>
+            <input type="submit" value="Login">
+            <div class="register">
+                ¡Join our team <a href="accounts/sign-up/">here</a>!
+            </div>
         </form>
     </div>
 </body>

@@ -33,6 +33,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', gymappViews.home, name='Home'),
     path('accounts/login/', auth_views.LoginView.as_view(template_name='index.html'), name='login'),
+    path('accounts/sign-up/', gymappViews.signup, name='signup'),
+    path('accounts/sign-up/go/', gymappViews.signupgo, name='signupgo'),
+    path('accounts/options/', gymappViews.options, name='options'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

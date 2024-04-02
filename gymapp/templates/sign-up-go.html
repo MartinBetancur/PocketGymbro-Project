@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+</head>
+
+<body>
+    <div class="cover">
+        <img src="{% static 'images/Logo.png' %}" alt="Logo" class="logo">
+        <h3>¡Join our team now!</h3>
+        <div class="line"></div>
+        <div class="line"></div>
+    </div>
+    <div class="container">
+        <h2>Sign Up</h2>
+        <form method="POST" class="grid-form" action="">
+            {% csrf_token %}
+            <div class="column">
+                <div class="username">
+                    <input type="text" id="username" value="{{ username }}" readonly>
+                </div>
+                <div class="username">
+                    <input type="text" id="password" value="{{ email }}" readonly>
+                </div>
+                <div class="username">
+                    <input type="password" id="password" value="{{ password }}" readonly>
+                </div>
+                <div class="username">
+                    <input type="password" id="password" value="{{ password }}" readonly>
+                </div>
+                <div class="username">
+                    <input type="number" name="wgt" id="wgt" required>
+                    <label>Weight (kgs)</label>
+                </div>
+                <div class="username">
+                    <input type="text" name="objt" id="objt" required>
+                    <label>Objectives</label>
+                </div>
+            </div>
+            <div class="column">
+                <div class="username">
+                    <input type="number" name="hgt" id="hgt" required>
+                    <label>Height (cm)</label>
+                </div>
+                <div class="username">
+                    <input type="number" name="fre" id="fre" required>
+                    <label>Training frecuency (days/week)</label>
+                </div>
+                <div class="username">
+                    <input type="number" name="exp" id="exp" required>
+                    <label>Training experience (years)</label>
+                </div>
+                <div class="username">
+                    <input type="text" name="gnd" id="gnd" required>
+                    <label>Gender</label>
+                </div>
+                <div class="username">
+                    <input type="number" name="age" id="age" required>
+                    <label>Age</label>
+                </div>
+                
+            </div>
+            <input type="submit" value="Sign Up">
+        </form>
+    </div>
+</body>
+
+</html>

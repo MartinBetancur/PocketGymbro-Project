@@ -29,7 +29,8 @@ class Perfil(models.Model):
     experiencia_entrenamiento = models.IntegerField()
     edad = models.IntegerField()
     objetivos = models.TextField()
-    tipo_entrenamiento = models.ForeignKey(TipoEntrenamiento, on_delete=models.CASCADE)
+    genero = models.TextField(default=None)
+
 
     def __str__(self):
         return self.user.username

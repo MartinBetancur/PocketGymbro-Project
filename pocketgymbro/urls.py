@@ -22,6 +22,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import views as auth_views
 
 
+
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -31,11 +32,14 @@ class CustomUserCreationForm(UserCreationForm):
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', gymappViews.home, name='Home'),
+    path('', gymappViews.home, name='home'),
     path('accounts/login/', auth_views.LoginView.as_view(template_name='index.html'), name='login'),
     path('accounts/sign-up/', gymappViews.signup, name='signup'),
     path('accounts/sign-up/go/', gymappViews.signupgo, name='signupgo'),
     path('accounts/options/', gymappViews.options, name='options'),
+    path('main/', gymappViews.main, name='main'),
+    path('main/logout', gymappViews.logout_view, name='logout'),
+
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,5 +1,14 @@
 <h1>You are logged</h1>
-<form action="logout" method="POST">
+<form action="logout/" method="POST">
     {% csrf_token %}
     <button type="submit">Logout</button>
+
 </form>
+<p>
+
+    <a href="/main/profile/" class="button">Profile</a>
+</p>
+<p>
+
+    <a href="/main/equipment/" class="button">Equipment</a>
+</p>

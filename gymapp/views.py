@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Perfil,Equipamiento_Del_Usuario
-from .forms import SignUpForm,CustomAuthenticationForm, PerfilForm, EquipamientoForm
+from .models import Perfil,Equipamiento_Del_Usuario,DietaDiaria
+from .forms import SignUpForm,CustomAuthenticationForm, PerfilForm, EquipamientoForm, DietaDiariaForm
 from datetime import datetime
 from django.contrib.auth import login
 from django.contrib.auth import logout as django_logout
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
+from gymapp.testApi import get_completion
 
 def signin(request):
     if request.method == 'POST':
@@ -129,5 +130,42 @@ def equipment(request):
         form.save()
         print(form)
         return redirect('main')
+
+@login_required
+def dietBot(request):
+    form = DietaDiariaForm()  # Crea una instancia del formulario DietaDiariaForm
+
+    if request.method == 'POST':
+        if request.POST.get('action') == 'GUARDAR':  # Verifica si se envió la opción 'GUARDAR'
+            # Crea una instancia del formulario DietaDiariaForm con los datos del request.POST
+            form = DietaDiariaForm(request.POST)
+
+            
+            if form.is_valid():
+                comida1 = form.cleaned_data.get('comida1')
+                comida2 = form.cleaned_data.get('comida2')
+                comida3 = form.cleaned_data.get('comida3')
+                comida4 = form.cleaned_data.get('comida4')
+                comida5 = form.cleaned_data.get('comida5')
+                comida6 = form.cleaned_data.get('comida6')
+                DietaDiaria.objects.create(user=request.user,comida1=comida1,comida2=comida2,comida3=comida3,comida4=comida4,comida5=comida5,comida6=comida6,fecha= datetime.now())
+                return redirect('main')
+        user_input = request.POST.get('user_input')
+        solicitud = f"""Quiero que actúes como un nutricionista que sabe muchos platillos distintos. Necesito que me des 6 comidas para un día completo teniendo en cuenta que solamente quiero respuestas sencillas, el formato con el que me vas a responder quiero que sea el siguiente: 
+Desayuno: Tu respuesta,Almuerzo: Tu respuesta,Merienda: Tu respuesta,Cena: Tu respuesta,Snack: Tu respuesta,Postre: Tu respuesta
+Aparte de esto quiero que tú nunca uses, comas, paréntesis ni comillas en tus respuestas y solamente quiero que seas conciso con lo que te pido y me des lo que necesito.
+Ahora quiero que bases tus respuestas en esto: {user_input}"""
+        respuesta = get_completion(solicitud)
+        comidas = respuesta.split(',')
+        # Crear un diccionario con las comidas generadas para inicializar el formulario
+        initial_data = {}
+        for i, comida in enumerate(comidas, start=1):
+            initial_data[f'comida{i}'] = comida.strip()
+        # Crear una instancia del formulario DietaDiariaForm con las comidas generadas como datos iniciales
+        form = DietaDiariaForm(initial=initial_data)
+        
+
+    # Renderizar la plantilla dieta.html con el formulario en el contexto
     
+    return render(request, 'dieta.html', {'form': form})
         

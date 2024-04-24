@@ -2,7 +2,7 @@ from typing import Any
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
-from .models import Perfil, Equipamiento_Del_Usuario
+from .models import Perfil, Equipamiento_Del_Usuario, DietaDiaria
 from django.forms import ModelForm
 
 
@@ -23,3 +23,8 @@ class EquipamientoForm(ModelForm):
     class Meta:
         model = Equipamiento_Del_Usuario
         fields = ['equp_gimnasio', 'equp_casa']
+
+class DietaDiariaForm(ModelForm):
+    class Meta:
+        model = DietaDiaria
+        fields = ['comida1','comida2','comida3','comida4','comida5','comida6']

@@ -41,6 +41,7 @@ urlpatterns = [
     path('main/logout/', gymappViews.logout_view, name='logout'),
     path('main/profile/', gymappViews.profile, name='profile'),
     path('main/equipment/', gymappViews.equipment, name='equipment'),
+    path('main/dietbot/', gymappViews.dietBot, name='dieta'),
 
 ]
 

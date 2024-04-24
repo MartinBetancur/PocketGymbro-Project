@@ -50,7 +50,7 @@ class Historial(models.Model):
     opinion = models.IntegerField(choices=CondicionFisica.choices)
     
 class DietaDiaria(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     comida1 = models.TextField(default=None)
     comida2 = models.TextField(default=None)
     comida3 = models.TextField(default=None)

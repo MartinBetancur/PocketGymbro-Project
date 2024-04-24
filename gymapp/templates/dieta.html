@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dieta</title>
+</head>
+<body>
+
+<h1>Dieta</h1>
+
+<a href="/main" class="return-link">return</a>
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <input type="text" name="user_input">
+    <button type="submit">Make a what you need</button>
+</form>
+
+{% if form %}
+<form action="" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" name="action" value="GUARDAR">Guardar</button>
+</form>
+{% endif %}
+
+</body>
+</html>

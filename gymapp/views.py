@@ -1,12 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Perfil,Equipamiento_Del_Usuario,DietaDiaria
+from .models import Perfil,Equipamiento_Del_Usuario,DietaDiaria, Macros
 from .forms import SignUpForm,CustomAuthenticationForm, PerfilForm, EquipamientoForm, DietaDiariaForm
 from datetime import datetime
 from django.contrib.auth import login
 from django.contrib.auth import logout as django_logout
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
-from gymapp.testApi import get_completion
+from gymapp.testApi import get_completion, macrosCalc, calcular_edad
 
 def signin(request):
     if request.method == 'POST':
@@ -89,8 +89,6 @@ def signupgo(request):
         else:
             return redirect('/accounts/sign-up/')
 
-
-
 def options(request):
     return render(request, 'options.html')
 @login_required
@@ -168,4 +166,50 @@ Ahora quiero que bases tus respuestas en esto: {user_input}"""
     # Renderizar la plantilla dieta.html con el formulario en el contexto
     
     return render(request, 'dieta.html', {'form': form})
+
+@login_required
+def macros(request):
+    
+    perfil = Perfil.objects.get(user = request.user)
+    ejer = perfil.condicion_fisica
+    fechaN = perfil.fecha_Nacimiento
+    edad = calcular_edad(fechaN)
+    obj = perfil.objetivos
+    alt=perfil.altura
+    peso=perfil.peso
+    genero = perfil.genero
+    if request.method == 'GET':
+
+        return render(request, 'macrosCalc.html',{'ejer' : ejer, 'peso':peso, 'alt':alt, 'gn':genero, 'age':edad, 'obj':obj})
+    else:
+        peso = float(request.POST.get('wgt'))
+        alt = float(request.POST.get('hgt'))
+        act = int(request.POST.get('phy'))
+        edad = int(request.POST.get('age'))
+        goal = request.POST.get('goal')
+        genero = request.POST.get('gnd')
+        calorias = macrosCalc(peso,alt,edad,act,goal,genero)
+        p1 = calorias*0.4
+        p1 = round((p1/4),1)
+        p2 = calorias*0.3
+        p2 = round((p2/4),1)
+        p3 = calorias*0.3
+        p3 = round((p3/9),1)
+        calorias = round(calorias,1)
         
+        print(p1)
+        print(p2)
+        print(p3)
+        print(calorias)
+            
+        p,coso = Macros.objects.update_or_create(
+                    user=request.user,
+                    defaults={'proteinas': p1, 'grasas': p3, 'carbohidratos': p2, 'calorias': calorias},
+                )
+            
+        
+        return render(request, 'macrosCalc.html', {'ejer' : ejer, 'peso':peso, 'alt':alt, 'gn':genero, 'result':calorias, 'proteinas':p1, 'grasas':p3, 'carboH':p2, 'age':edad, 'obj':goal})
+
+@login_required
+def rutinas(request):
+    return render(request, 'rutinas.html')

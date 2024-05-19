@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Macros Calculator</title>
+    <style>
+        /* Reseteo de estilos por defecto */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Estilos básicos del cuerpo */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Contenedor principal */
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        /* Estilos del encabezado */
+        h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #444;
+        }
+
+        h3 {
+            margin-top: 10px;
+            font-size: 18px;
+            color: #555;
+        }
+
+        /* Estilos del formulario */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input,
+        select {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            width: calc(100% - 22px);
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .button {
+            display: inline-block;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Macros Calculator</h1>
+        <form action="" method="POST">
+            {% csrf_token %}
+            <label for="wgt">Weight (kg)</label>
+            <input type="number" name="wgt" id="wgt" value="{{ peso }}" required>
+            <label for="hgt">Height (cm)</label>
+            <input type="number" name="hgt" id="hgt" value="{{ alt }}" required>
+            <label for="age">Age</label>
+            <input type="number" name="age" id="age" value="{{ age }}" required>
+            <label for="phy">Physical Activity (1-10)</label>
+            <select name="phy" id="phy" required>
+                <option value="{{ ejer }}">{{ ejer }}</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+            <label for="goal">Goal</label>
+            <select name="goal" id="goal" required>
+                <option value="{{ obj }}">{{ obj }}</option>
+                <option value="maximun fat loss">Maximum Fat Loss</option>
+                <option value="Fat Loss">Fat Loss</option>
+                <option value="Some Fat Loss">Some Fat Loss</option>
+                <option value="mantain">Maintain</option>
+                <option value="Steady Gain">Steady Gain</option>
+                <option value="Gain">Gain</option>
+            </select>
+            <label for="gnd">Gender</label>
+            <select name="gnd" id="gnd" required>
+                <option value="{{ gn }}">{{ gn }}</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+            <button type="submit">Send</button>
+        </form>
+
+        {% if result %}
+        <h3>Recommended total calories: {{ result }}</h3>
+        <h3>Total proteins: {{ proteinas }}g</h3>
+        <h3>Total fats: {{ grasas }}g</h3>
+        <h3>Total carbohydrates: {{ carboH }}g</h3>
+        <h3>These recommendations are based on a distribution of total calories of 40% proteins, 30% fats, and 30% carbohydrates.</h3>
+        {% endif %}
+        
+        <a href="/main/" class="button">Main</a>
+    </div>
+</body>
+</html>

@@ -37,9 +37,18 @@
                     <input type="number" name="wgt" id="wgt" required>
                     <label>Weight (kgs)</label>
                 </div>
+                
                 <div class="username">
-                    <input type="text" name="objt" id="objt" required>
-                    <label>General Objectives</label>
+                    
+                    <select type="text" name="objt" id="objt" required>
+                        <option value="">Objective</option>
+                        <option value="MAXIMUM FAT LOSS">Maximum Fat Loss</option>
+                        <option value="SOME FAT LOSS">Some Fat Loss</option>
+                        <option value="MANTAIN">Mantain</option>
+                        <option value="STEADY GAIN">Steady Gain</option>
+                        <option value="GAIN">Gain</option>
+                    </select>
+                    
                 </div>
                 <div class="username">
                     <input type="date" name="btd" id="btd" required>
@@ -60,57 +69,78 @@
                     <label>Height (cm)</label>
                 </div>
                 <div class="username">
-                    <input type="number" name="phy" id="phy" required>
-                    <label>Physical condition </label>
+                    <select type="number" name="phy" id="phy" required>
+                        <option value="">Physical condition</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>
                 </div>
                 <div class="username">
-                    <input type="text" name="spt" id="spt" required>
-                    <label>Sport Preference</label>
+                    <select type="text" name="spt" id="spt" required>
+                        <option value="">Sport Preference</option>
+                        <option value="SOCCER">Soccer</option>
+                        <option value="BASKETBALL">Basketball</option>
+                        <option value="VOLLEYBALL">Volleyball</option>
+                        <option value="UNDERWATER HOCKEY">Underwater Hockey</option>
+                        <option value="TENNIS">Tennis</option>
+                        <option value="TABLE TENNIS">Table Tennis</option>
+                        <option value="ATHLETICS">Athletics</option>
+                        <option value="CYCLING">Cycling</option>
+                        <option value="CALISTHENICS">Calisthenics</option>
+                        <option value="HOCKEY">Hockey</option>
+                        <option value="ARCHERY">Archery</option>
+                        <option value="OTHER">Other</option>
+                    </select>
+                    
                 </div>
                 <div class="username">
                     <label for="gender"></label>
                     <select name="gnd" id="gnd" required>
-                        <option value="">Select</option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                        <option value="non-binary">Non-binary</option>
-                        <option value="transgender">Transgender</option>
-                        <option value="genderqueer">Genderqueer</option>
-                        <option value="genderfluid">Genderfluid</option>
-                        <option value="agender">Agender</option>
-                        <option value="bigender">Bigender</option>
-                        <option value="two-spirit">Two-Spirit</option>
-                        <option value="other">Other</option>
-                        <option value="cisgender">Cisgender</option>
-                        <option value="gender questioning">Gender Questioning</option>
-                        <option value="gender nonconforming">Gender Nonconforming</option>
-                        <option value="pangender">Pangender</option>
-                        <option value="demiboy">Demiboy</option>
-                        <option value="demigirl">Demigirl</option>
-                        <option value="androgyne">Androgyne</option>
-                        <option value="neutrois">Neutrois</option>
-                        <option value="genderflux">Genderflux</option>
-                        <option value="third gender">Third Gender</option>
-                        <option value="genderqueer">Genderqueer</option>
-                        <option value="agender">Agender</option>
-                        <option value="bi-gender">Bi-gender</option>
-                        <option value="gender expansive">Gender Expansive</option>
-                        <option value="gender variant">Gender Variant</option>
-                        <option value="gender questioning">Gender Questioning</option>
-                        <option value="intersex">Intersex</option>
-                        <option value="two-spirit">Two-Spirit</option>
-                        <option value="neutrois">Neutrois</option>
-                        <option value="third sex">Third Sex</option>
-                        <option value="none">None</option>
-                        <option value="none">Mahoraga</option>
-                        <option value="none">Itachi</option>
-                        <option value="none">Boeing AH-64 Apache</option>
-                        <option value="none">Goku</option>
-                        <option value="none">Decepticon</option>
-                        <option value="none">Optimus prime</option>
-                        <option value="none">Perro</option>
-                        <option value="none">Gato</option>
-                        <option value="prefer not to say">Prefer Not to Say</option>
+                        <option value="">Gender</option>
+                        <option value="MALE">Male</option>
+                        <option value="FEMALE">Female</option>
+                        <option value="NON_BINARY">Non-binary</option>
+                        <option value="TRANSGENDER">Transgender</option>
+                        <option value="GENDERQUEER">Genderqueer</option>
+                        <option value="GENDERFLUID">Genderfluid</option>
+                        <option value="AGENDER">Agender</option>
+                        <option value="BIGENDER">Bigender</option>
+                        <option value="TWO_SPIRIT">Two-Spirit</option>
+                        <option value="OTHER">Other</option>
+                        <option value="CISGENDER">Cisgender</option>
+                        <option value="GENDER_QUESTIONING">Gender Questioning</option>
+                        <option value="GENDER_NONCONFORMING">Gender Nonconforming</option>
+                        <option value="PANGENDER">Pangender</option>
+                        <option value="DEMIBOY">Demiboy</option>
+                        <option value="DEMIGIRL">Demigirl</option>
+                        <option value="ANDROGYNE">Androgyne</option>
+                        <option value="NEUTROIS">Neutrois</option>
+                        <option value="GENDERFLUX">Genderflux</option>
+                        <option value="THIRD_GENDER">Third Gender</option>
+                        <option value="BI_GENDER">Bi-gender</option>
+                        <option value="GENDER_EXPANSIVE">Gender Expansive</option>
+                        <option value="GENDER_VARIANT">Gender Variant</option>
+                        <option value="INTERSEX">Intersex</option>
+                        <option value="THIRD_SEX">Third Sex</option>
+                        <option value="NONE">None</option>
+                        <option value="MAHORAGA">Mahoraga</option>
+                        <option value="ITACHI">Itachi</option>
+                        <option value="BOEING_AH_64_APACHE">Boeing AH-64 Apache</option>
+                        <option value="GOKU">Goku</option>
+                        <option value="DECEPTICON">Decepticon</option>
+                        <option value="OPTIMUS_PRIME">Optimus prime</option>
+                        <option value="PERRO">Perro</option>
+                        <option value="GATO">Gato</option>
+                        <option value="OBAMA">Obama</option>
+                        <option value="PREFER_NOT_TO_SAY">Prefer Not to Say</option>
                     </select>
                 </div>
                 

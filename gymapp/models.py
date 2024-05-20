@@ -103,10 +103,9 @@ class Perfil(models.Model):
         return self.user.username
 
 class Historial(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     fecha = models.DateField(default=None)
-    rutina = models.TextField(default=None)
-    duracion = models.TimeField(default=None)
+    rutina = models.JSONField()
     lesiones = models.TextField(default=None)
     opinion = models.IntegerField(choices=CondicionFisica.choices)
     

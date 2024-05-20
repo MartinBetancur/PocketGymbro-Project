@@ -219,7 +219,46 @@ def macros(request):
 
 @login_required
 def rutinas(request):
-    return render(request, 'rutinas.html')
+    if request.method == 'POST':
+        
+        if request.POST.get('action') == 'Go':
+            pass
+        user_input = request.POST.get('user_input')
+        place = request.POST.get('place')
+        perfil = Perfil.objects.get(user = request.user)
+        deporte = perfil.deporte_practicado
+        objetivo = perfil.objetivos
+        condiciones = perfil.condiciones_medicas
+        genero = perfil.genero
+        edad = perfil.fecha_Nacimiento
+        edad = calcular_edad(edad)
+        try:
+            equipa = Equipamiento_Del_Usuario.objects.get(user = request.user)
+            if place == 'Gym':
+                equipa = equipa.equp_gimnasio
+                if equipa == '':
+                    equipa = 'No especificado'
+                
+            else:
+                equipa = equipa.equp_casa
+                if equipa == '':
+                    equipa = 'No especificado'
+        except ObjectDoesNotExist:
+            equipa = 'No especificado'
+        solicitud = '''Necesito que actues como un entrenador deportivo de alta calidad, tu proposito es dar excelente rutinas de ejercicio para las personas dependiendo de las distintas caracteristicas de la persona en si. La rutina que vas a proporcionar va a ser en formato json de la manera que te voy a decir a continuación: {"Tiempo_Aproximado" : "Tu respuesta", "Tiempo_de_Descanso": "Tu respuesta", "Calentamiento" : "Tu respuesta" , "Numero_de_series_por_ejercicio" : "Tu respuesta", "Ejercicios" : {"Ejercicio_1": "Tu respuesta", "Ejercicio_2": "Tu respuesta", "Ejercicio_3": "Tu respuesta - Numero de repeticiones", "Ejercicio_4": "Tu respuesta ", "Ejercicio_5": "Tu respuesta", "Ejercicio_6": "Tu respuesta",.....,"Ejercicio_n":"Tu respuesta"}}
+
+'''+ f'''Las caracteristicas de la persona son las siguientes: Genero: {genero}, Objetivo: {objetivo}, Edad: {edad} años, Condiciones medicas: {condiciones}, Deporte practicado: {deporte}, Equipamiento para entrenar: {equipa}, Lugar de entreno: {place}
+La cantidad de ejercicios depende de tu criterio o de lo que la persona especifique, lo mismo con la el tiempo aproximado y el tiempo de descanso. Estas son las cualidades especificas que quiere la persona en su rutina: {user_input}. Dado el caso que la persona no especifique nada, o lo que te haya dicho no tenga nada de relevancia, elige por ella lo mas adecuado basado en los datos que se te han dado.
+
+Por ultimo solamente quiero que la respuesta que me des sea el json, no quiero que me des ningun mensaje mas para que des un mejor rendimiento.'''
+        respuestaVanilla = get_completion(solicitud)
+        respuestaDict = repuestaJson(respuestaVanilla)
+        print(respuestaDict["Tiempo_Aproximado"])
+
+        return render(request, 'rutinas.html', {'respuestaV': respuestaVanilla, 'entreno': respuestaDict})
+    else:
+
+        return render(request, 'rutinas.html')
 
 @login_required
 def semanalDieta(request):

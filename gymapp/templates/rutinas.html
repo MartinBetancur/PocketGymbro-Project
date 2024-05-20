@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dieta</title>
+    <title>Excercise Routine</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -68,24 +68,35 @@
 <body>
 
 <div class="container">
-    <h1>Routine</h1>
+    <h1>Excercise Routine</h1>
 
     <a href="/main" class="return-link">Return</a>
 
     <form action="" method="POST">
         {% csrf_token %}
-        <input type="text" name="user_input" placeholder="Enter your input here">
-        <button type="submit">Generate Menu</button>
+        <input type="text" name="user_input" placeholder="Enter your ideas">
+        <label for="">Where are you going to train?</label>
+        <select name="place" id="place" required>
+            <option value="">Select</option>
+            <option value="Gym">Gym</option>
+            <option value="Home">Home</option>
+        </select>
+        <button type="submit">Generate A Routine</button>
     </form>
 
-    {% if form %}
-    <form action="" method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <div class="form-actions">
-            <button type="submit" name="action" value="GUARDAR">Save</button>
-        </div>
-    </form>
+    {% if entreno %}
+    <h1>Rutina de Ejercicio</h1>
+    <p><strong>Tiempo Aproximado:</strong> {{ entreno.Tiempo_Aproximado }}</p>
+    <p><strong>Tiempo de Descanso:</strong> {{ entreno.Tiempo_de_Descanso }}</p>
+    <p><strong>Calentamiento:</strong> {{ entreno.Calentamiento }}</p>
+    <p><strong>Número de series por ejercicio:</strong> {{ entreno.Numero_de_series_por_ejercicio }}</p>
+
+    <h2>Ejercicios</h2>
+    <ul>
+        {% for key, value in entreno.Ejercicios.items %}
+            <li><strong>{{ key }}:</strong> {{ value }}</li>
+        {% endfor %}
+    </ul>
     {% endif %}
 </div>
 

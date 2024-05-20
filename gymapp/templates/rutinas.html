@@ -5,6 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Excercise Routine</title>
     <style>
+        .cover {
+            background-image: url('/static/images/third.jpg') !important;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -66,39 +81,41 @@
     </style>
 </head>
 <body>
+<div class="cover">
 
-<div class="container">
-    <h1>Excercise Routine</h1>
-
-    <a href="/main" class="return-link">Return</a>
-
-    <form action="" method="POST">
-        {% csrf_token %}
-        <input type="text" name="user_input" placeholder="Enter your ideas">
-        <label for="">Where are you going to train?</label>
-        <select name="place" id="place" required>
-            <option value="">Select</option>
-            <option value="Gym">Gym</option>
-            <option value="Home">Home</option>
-        </select>
-        <button type="submit">Generate A Routine</button>
-    </form>
-
-    {% if entreno %}
-    <h1>Rutina de Ejercicio</h1>
-    <p><strong>Tiempo Aproximado:</strong> {{ entreno.Tiempo_Aproximado }}</p>
-    <p><strong>Tiempo de Descanso:</strong> {{ entreno.Tiempo_de_Descanso }}</p>
-    <p><strong>Calentamiento:</strong> {{ entreno.Calentamiento }}</p>
-    <p><strong>Número de series por ejercicio:</strong> {{ entreno.Numero_de_series_por_ejercicio }}</p>
-
-    <h2>Ejercicios</h2>
-    <ul>
-        {% for key, value in entreno.Ejercicios.items %}
+    <div class="container">
+        <h1>Excercise Routine</h1>
+        
+        <a href="/main" class="return-link">Return</a>
+        
+        <form action="" method="POST">
+            {% csrf_token %}
+            <input type="text" name="user_input" placeholder="Enter your ideas">
+            <label for="">Where are you going to train?</label>
+            <select name="place" id="place" required>
+                <option value="">Select</option>
+                <option value="Gym">Gym</option>
+                <option value="Home">Home</option>
+            </select>
+            <button type="submit">Generate A Routine</button>
+        </form>
+        
+        {% if entreno %}
+        <h1>Rutina de Ejercicio</h1>
+        <p><strong>Tiempo Aproximado:</strong> {{ entreno.Tiempo_Aproximado }}</p>
+        <p><strong>Tiempo de Descanso:</strong> {{ entreno.Tiempo_de_Descanso }}</p>
+        <p><strong>Calentamiento:</strong> {{ entreno.Calentamiento }}</p>
+        <p><strong>Número de series por ejercicio:</strong> {{ entreno.Numero_de_series_por_ejercicio }}</p>
+        
+        <h2>Ejercicios</h2>
+        <ul>
+            {% for key, value in entreno.Ejercicios.items %}
             <li><strong>{{ key }}:</strong> {{ value }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
 </div>
-
+    
 </body>
 </html>

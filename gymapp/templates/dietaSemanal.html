@@ -5,99 +5,97 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dieta</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        html, body {
             margin: 0;
-            padding: 0;
-            background-color: #f8f9fa;
+            height: 100%;
+            overflow: hidden;
         }
-
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .return-link {
-            display: block;
-            text-align: center;
-            margin-bottom: 20px;
-            color: #007bff;
-            text-decoration: none;
-        }
-
-        form {
-            margin-bottom: 20px;
-        }
-
-        input[type="text"] {
+        .cover {
+            background-image: url('/static/images/third.jpg') !important;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            margin-bottom: 10px;
-            box-sizing: border-box;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-
-        button[type="submit"] {
-            background-color: #007bff;
-            color: #fff;
+        .content-container {
+            overflow-y: auto;
+            position: relative;
+            max-height: 100%;
+            width: 80%;
+        }
+        .content {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        h1, h2, form, ul {
+            margin: 0 0 20px 0;
+            padding: 0;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 5px 0;
+        }
+        button {
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
+            background-color: #007bff;
+            color: white;
             cursor: pointer;
         }
-
-        button[type="submit"]:hover {
+        button:hover {
             background-color: #0056b3;
         }
-
-        .form-actions {
-            text-align: center;
+        input[type="text"] {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: calc(100% - 22px);
         }
     </style>
 </head>
 <body>
-
-<div class="container">
-    <h1>Dieta</h1>
-
-    <a href="/main" class="return-link">Return</a>
-
-    <form action="" method="POST">
-        {% csrf_token %}
-        <input type="text" name="user_input" placeholder="Enter your input here">
-        <button type="submit">Generate Weekly Diet</button>
-    </form>
-
-    {% if respuesta %}
-    <form action="" method="POST">
-        {% csrf_token %}
-        <input type="hidden" name="r" value="{{ osea }}">
-        
-        {% for dia, comidas in respuesta.items %}
-            <h2>{{ dia }}</h2>
-            <ul>
-                {% for comida, descripcion in comidas.items %}
-                    <li><strong>{{ comida }}:</strong> {{ descripcion }}</li>
-                {% endfor %}
-            </ul>
-        {% endfor %}
-        
-        <div class="form-actions">
-            <button type="submit" name="action" value="Save">Save</button>
+    <div class="cover">
+        <div class="content-container">
+            <div class="content">
+                <h1>Dieta</h1>
+                <a href="/main" class="">Return</a>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <input type="text" name="user_input" placeholder="Enter your input here">
+                    <button type="submit">Generate Weekly Diet</button>
+                </form>
+                {% if respuesta %}
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="r" value="{{ osea }}">
+                    {% for dia, comidas in respuesta.items %}
+                    <h2>{{ dia }}</h2>
+                    <ul>
+                        {% for comida, descripcion in comidas.items %}
+                        <li><strong>{{ comida }}:</strong> {{ descripcion }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endfor %}
+                    <div class="">
+                        <button type="submit" name="action" value="Save">Save</button>
+                    </div>
+                </form>
+                {% endif %}
+            </div>
         </div>
-    </form>
-    {% endif %}
-</div>
-
+    </div>
 </body>
 </html>

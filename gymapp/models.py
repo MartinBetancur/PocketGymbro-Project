@@ -112,12 +112,12 @@ class Historial(models.Model):
     
 class DietaDiaria(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    comida1 = models.CharField(default=None, max_length= 21)
-    comida2 = models.CharField(default=None, max_length= 21)
-    comida3 = models.CharField(default=None, max_length= 21)
-    comida4 = models.CharField(default=None, max_length= 21)
-    comida5 = models.CharField(default=None, max_length= 21)
-    comida6 = models.CharField(default=None, max_length= 21)
+    comida1 = models.CharField(default=None, max_length= 200)
+    comida2 = models.CharField(default=None, max_length= 200)
+    comida3 = models.CharField(default=None, max_length= 200)
+    comida4 = models.CharField(default=None, max_length= 200)
+    comida5 = models.CharField(default=None, max_length= 200)
+    comida6 = models.CharField(default=None, max_length= 200)
     fecha = models.DateField(default=None)
 
 class Equipamiento_Del_Usuario(models.Model):
@@ -140,20 +140,10 @@ class Macros(models.Model):
 
 class Dieta_Semanal(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    lunes = models.JSONField()
-    martes = models.JSONField()
-    miercoles = models.JSONField()
-    jueves = models.JSONField()
-    viernes = models.JSONField()
-    sabado = models.JSONField()
-    domingo = models.JSONField()
+    horario = models.JSONField()
+    
 
 class Rutina_Semanal(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    lunes = models.JSONField()
-    martes = models.JSONField()
-    miercoles = models.JSONField()
-    jueves = models.JSONField()
-    viernes = models.JSONField()
-    sabado = models.JSONField()
-    domingo = models.JSONField()
+    horario = models.JSONField()
+    

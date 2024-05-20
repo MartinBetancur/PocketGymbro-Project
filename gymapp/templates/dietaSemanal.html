@@ -71,18 +71,27 @@
     <h1>Dieta</h1>
 
     <a href="/main" class="return-link">Return</a>
-    <a href="/main/dietaS/" class="return-link">Weekly Diet</a>
 
     <form action="" method="POST">
         {% csrf_token %}
         <input type="text" name="user_input" placeholder="Enter your input here">
-        <button type="submit">Generate Menu</button>
+        <button type="submit">Generate Weekly Diet</button>
     </form>
 
-    {% if form %}
+    {% if respuesta %}
     <form action="" method="POST">
         {% csrf_token %}
-        {{ form.as_p }}
+        <input type="hidden" name="r" value="{{ osea }}">
+        
+        {% for dia, comidas in respuesta.items %}
+            <h2>{{ dia }}</h2>
+            <ul>
+                {% for comida, descripcion in comidas.items %}
+                    <li><strong>{{ comida }}:</strong> {{ descripcion }}</li>
+                {% endfor %}
+            </ul>
+        {% endfor %}
+        
         <div class="form-actions">
             <button type="submit" name="action" value="Save">Save</button>
         </div>

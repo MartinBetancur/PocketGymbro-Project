@@ -253,7 +253,6 @@ La cantidad de ejercicios depende de tu criterio o de lo que la persona especifi
 Por ultimo solamente quiero que la respuesta que me des sea el json, no quiero que me des ningun mensaje mas para que des un mejor rendimiento.'''
         respuestaVanilla = get_completion(solicitud)
         respuestaDict = repuestaJson(respuestaVanilla)
-        print(respuestaDict["Tiempo_Aproximado"])
 
         return render(request, 'rutinas.html', {'respuestaV': respuestaVanilla, 'entreno': respuestaDict})
     else:

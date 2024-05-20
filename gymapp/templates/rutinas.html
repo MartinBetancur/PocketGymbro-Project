@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Excercise Routine</title>
+    <title>Exercise Routine</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -14,7 +14,7 @@
 
         .container {
             max-width: 600px;
-            margin: 0 auto;
+            margin: 40px auto;
             padding: 20px;
             background-color: #fff;
             border-radius: 8px;
@@ -24,6 +24,7 @@
         h1 {
             text-align: center;
             margin-bottom: 20px;
+            color: #333;
         }
 
         .return-link {
@@ -34,11 +35,15 @@
             text-decoration: none;
         }
 
+        .return-link:hover {
+            text-decoration: underline;
+        }
+
         form {
             margin-bottom: 20px;
         }
 
-        input[type="text"] {
+        input[type="text"], select {
             width: 100%;
             padding: 10px;
             border: 1px solid #ccc;
@@ -54,6 +59,9 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         button[type="submit"]:hover {
@@ -63,19 +71,32 @@
         .form-actions {
             text-align: center;
         }
+
+        h2 {
+            margin-top: 30px;
+            color: #333;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        ul li {
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>Excercise Routine</h1>
+    <h1>Exercise Routine</h1>
 
     <a href="/main" class="return-link">Return</a>
 
     <form action="" method="POST">
         {% csrf_token %}
         <input type="text" name="user_input" placeholder="Enter your ideas">
-        <label for="">Where are you going to train?</label>
+        <label for="place">Where are you going to train?</label>
         <select name="place" id="place" required>
             <option value="">Select</option>
             <option value="Gym">Gym</option>
@@ -85,7 +106,7 @@
     </form>
 
     {% if entreno %}
-    <h1>Rutina de Ejercicio</h1>
+    <h2>Rutina de Ejercicio</h2>
     <p><strong>Tiempo Aproximado:</strong> {{ entreno.Tiempo_Aproximado }}</p>
     <p><strong>Tiempo de Descanso:</strong> {{ entreno.Tiempo_de_Descanso }}</p>
     <p><strong>Calentamiento:</strong> {{ entreno.Calentamiento }}</p>

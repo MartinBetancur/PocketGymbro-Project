@@ -66,10 +66,6 @@ def calcular_edad(fecha):
         edad = today.year - fecha.year - ((today.month, today.day) < (fecha.month, fecha.day))
         return edad
 
-s = """Quiero que actues como nutricionista deportivo, sabes lo que son las macros de una persona y lo que deberia comer en el dia. Quiero que me des en un formato Json como este: {"Lunes":{"Desayuno":"Tu respuesta", "Almuerzo":"Tu respuesta", "Merienda":"Tu respuesta", "Cena":"Tu respuesta", "Snack":"Tu respuesta", "Postre":"Tu respuesta"}, "Martes":{"Desayuno":"Tu respuesta", "Almuerzo":"Tu respuesta", "Merienda":"Tu respuesta", "Cena":"Tu respuesta", "Snack":"Tu respuesta", "Postre":"Tu respuesta"}, "Miercoles":{"Desayuno":"Tu respuesta", "Almuerzo":"Tu respuesta", "Merienda":"Tu respuesta", "Cena":"Tu respuesta", "Snack":"Tu respuesta", "Postre":"Tu respuesta"}, "Jueves":{"Desayuno":"Tu respuesta", "Almuerzo":"Tu respuesta", "Merienda":"Tu respuesta", "Cena":"Tu respuesta", "Snack":"Tu respuesta", "Postre":"Tu respuesta"}, "Viernes":{"Desayuno":"Tu respuesta", "Almuerzo":"Tu respuesta", "Merienda":"Tu respuesta", "Cena":"Tu respuesta", "Snack":"Tu respuesta", "Postre":"Tu respuesta"}, "Sabado":{"Desayuno":"Tu respuesta", "Almuerzo":"Tu respuesta", "Merienda":"Tu respuesta", "Cena":"Tu respuesta", "Snack":"Tu respuesta", "Postre":"Tu respuesta"}, "Domingo":{"Desayuno":"Tu respuesta", "Almuerzo":"Tu respuesta", "Merienda":"Tu respuesta", "Cena":"Tu respuesta", "Snack":"Tu respuesta", "Postre":"Tu respuesta"}}
-
-En donde dice Tu respuesta tu vas a darme una recomendacion para comer basada en lo siguiente: """+ f"""Quiero Subir de peso
-Recuerda que no quiero que me des cualquier otro tipo de respuesta aparte del Json"""
 
 def repuestaJson(respuesta):
     respuesta = json.loads(respuesta)

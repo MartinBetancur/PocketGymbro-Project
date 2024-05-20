@@ -1,6 +1,6 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +11,22 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        .cover {
+            background-image: url('/static/images/third.jpg') !important;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         /* Estilos generales */
@@ -79,21 +95,86 @@
         .return-link:hover {
             text-decoration: underline;
         }
+
+        input[type="text"] {
+            border-radius: 50px;
+            padding: 10px;
+            border: 1px solid #ccc;
+
+        }
+
+        input[type="number"] {
+            border-radius: 50px;
+            padding: 10px;
+            border: 1px solid #ccc;
+
+        }
+
+        select {
+            border-radius: 50px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            outline: none;
+            font-size: 16px;
+
+        }
+
+        textarea {
+            border-radius: 50px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            outline: none;
+            font-size: 16px;
+            resize: none;
+            /* Desactiva el redimensionamiento */
+            width: 100%;
+            /* Ajusta el ancho del textarea */
+            height: 40px;
+            /* Ajusta la altura del textarea */
+            box-sizing: border-box;
+            /* Asegura que el padding no aumente el ancho total */
+        }
+        .btn {
+            font-family: "Open Sans", sans-serif;
+            font-size: 16px;
+            letter-spacing: 2px;
+            text-decoration: none;
+            text-transform: uppercase;
+            color: #000;
+            cursor: pointer;
+            border: 3px solid;
+            padding: 0.25em 0.5em;
+            box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px;
+            position: relative;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+        }
+
+        .btn:active {
+            box-shadow: 0px 0px 0px 0px;
+            top: 5px;
+            left: 5px;
+        }
     </style>
 </head>
+
 <body>
+    <div class="cover">
 
-<div class="container">
-    <h1>Actualizar Perfil</h1>
-    
-    <a href="/main" class="return-link">return</a>
+        <div class="container">
+            <h1>Actualizar Perfil</h1>
 
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Update</button>
-    </form>
-</div>
+            <a href="/main" class="return-link">return</a>
 
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="btn" type="submit">Update</button>
+            </form>
+        </div>
+
+    </div>
 </body>
+
 </html>

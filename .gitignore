@@ -2,4 +2,5 @@
 **/_pycache_/**
 env/
 .env
+*.env
 .env

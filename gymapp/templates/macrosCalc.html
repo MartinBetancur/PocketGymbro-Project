@@ -12,7 +12,21 @@
             padding: 0;
             box-sizing: border-box;
         }
-
+        .cover {
+            background-image: url('/static/images/third.jpg') !important;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
         /* Estilos básicos del cuerpo */
         body {
             font-family: Arial, sans-serif;
@@ -103,58 +117,61 @@
 </head>
 
 <body>
-    <div class="container">
-        <h1>Macros Calculator</h1>
-        <form action="" method="POST">
-            {% csrf_token %}
-            <label for="wgt">Weight (kg)</label>
-            <input type="number" name="wgt" id="wgt" value="{{ peso }}" required>
-            <label for="hgt">Height (cm)</label>
-            <input type="number" name="hgt" id="hgt" value="{{ alt }}" required>
-            <label for="age">Age</label>
-            <input type="number" name="age" id="age" value="{{ age }}" required>
-            <label for="phy">Physical Activity (1-10)</label>
-            <select name="phy" id="phy" required>
-                <option value="{{ ejer }}">{{ ejer }}</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-            </select>
-            <label for="goal">Goal</label>
-            <select name="goal" id="goal" required>
-                <option value="{{ obj }}">{{ obj }}</option>
-                <option value="maximun fat loss">Maximum Fat Loss</option>
-                <option value="Fat Loss">Fat Loss</option>
-                <option value="Some Fat Loss">Some Fat Loss</option>
-                <option value="mantain">Maintain</option>
-                <option value="Steady Gain">Steady Gain</option>
-                <option value="Gain">Gain</option>
-            </select>
-            <label for="gnd">Gender</label>
-            <select name="gnd" id="gnd" required>
-                <option value="{{ gn }}">{{ gn }}</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-            </select>
-            <button type="submit">Send</button>
-        </form>
+    <div class="cover">
 
-        {% if result %}
-        <h3>Recommended total calories: {{ result }}</h3>
-        <h3>Total proteins: {{ proteinas }}g</h3>
-        <h3>Total fats: {{ grasas }}g</h3>
-        <h3>Total carbohydrates: {{ carboH }}g</h3>
-        <h3>These recommendations are based on a distribution of total calories of 40% proteins, 30% fats, and 30% carbohydrates.</h3>
-        {% endif %}
-        
-        <a href="/main/" class="button">Main</a>
+        <div class="container">
+            <h1>Macros Calculator</h1>
+            <form action="" method="POST">
+                {% csrf_token %}
+                <label for="wgt">Weight (kg)</label>
+                <input type="number" name="wgt" id="wgt" value="{{ peso }}" required>
+                <label for="hgt">Height (cm)</label>
+                <input type="number" name="hgt" id="hgt" value="{{ alt }}" required>
+                <label for="age">Age</label>
+                <input type="number" name="age" id="age" value="{{ age }}" required>
+                <label for="phy">Physical Activity (1-10)</label>
+                <select name="phy" id="phy" required>
+                    <option value="{{ ejer }}">{{ ejer }}</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                </select>
+                <label for="goal">Goal</label>
+                <select name="goal" id="goal" required>
+                    <option value="{{ obj }}">{{ obj }}</option>
+                    <option value="maximun fat loss">Maximum Fat Loss</option>
+                    <option value="Fat Loss">Fat Loss</option>
+                    <option value="Some Fat Loss">Some Fat Loss</option>
+                    <option value="mantain">Maintain</option>
+                    <option value="Steady Gain">Steady Gain</option>
+                    <option value="Gain">Gain</option>
+                </select>
+                <label for="gnd">Gender</label>
+                <select name="gnd" id="gnd" required>
+                    <option value="{{ gn }}">{{ gn }}</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+                <button type="submit">Send</button>
+            </form>
+            
+            {% if result %}
+            <h3>Recommended total calories: {{ result }}</h3>
+            <h3>Total proteins: {{ proteinas }}g</h3>
+            <h3>Total fats: {{ grasas }}g</h3>
+            <h3>Total carbohydrates: {{ carboH }}g</h3>
+            <h3>These recommendations are based on a distribution of total calories of 40% proteins, 30% fats, and 30% carbohydrates.</h3>
+            {% endif %}
+            
+            <a href="/main/" class="button">Main</a>
+        </div>
     </div>
-</body>
-</html>
+    </body>
+    </html>

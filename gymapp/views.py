@@ -1,12 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Perfil,Equipamiento_Del_Usuario,DietaDiaria, Macros
+from .models import Perfil,Equipamiento_Del_Usuario,DietaDiaria, Macros, Dieta_Semanal
 from .forms import SignUpForm,CustomAuthenticationForm, PerfilForm, EquipamientoForm, DietaDiariaForm
 from datetime import datetime
 from django.contrib.auth import login
 from django.contrib.auth import logout as django_logout
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
-from gymapp.testApi import get_completion, macrosCalc, calcular_edad
+from gymapp.testApi import get_completion, macrosCalc, calcular_edad, repuestaJson
 
 def signin(request):
     if request.method == 'POST':
@@ -134,10 +134,11 @@ def dietBot(request):
     form = DietaDiariaForm()  # Crea una instancia del formulario DietaDiariaForm
 
     if request.method == 'POST':
-        if request.POST.get('action') == 'GUARDAR':  # Verifica si se envió la opción 'GUARDAR'
+        if request.POST.get('action') == 'Save':  # Verifica si se envió la opción 'GUARDAR'
             # Crea una instancia del formulario DietaDiariaForm con los datos del request.POST
+            
             form = DietaDiariaForm(request.POST)
-
+            
             
             if form.is_valid():
                 comida1 = form.cleaned_data.get('comida1')
@@ -146,10 +147,21 @@ def dietBot(request):
                 comida4 = form.cleaned_data.get('comida4')
                 comida5 = form.cleaned_data.get('comida5')
                 comida6 = form.cleaned_data.get('comida6')
+                
                 DietaDiaria.objects.create(user=request.user,comida1=comida1,comida2=comida2,comida3=comida3,comida4=comida4,comida5=comida5,comida6=comida6,fecha= datetime.now())
                 return redirect('main')
         user_input = request.POST.get('user_input')
-        solicitud = f"""Quiero que actúes como un nutricionista que sabe muchos platillos distintos. Necesito que me des 6 comidas para un día completo teniendo en cuenta que solamente quiero respuestas sencillas, el formato con el que me vas a responder quiero que sea el siguiente: 
+        try:
+            data_macros = Macros.objects.get(user = request.user)
+            proteinas = data_macros.proteinas
+            grasas = data_macros.grasas
+            carbohidratos = data_macros.carbohidratos
+            solicitud = f"""Quiero que actúes como un nutricionista que sabe muchos platillos distintos. Necesito que me des 6 comidas para un día completo teniendo en cuenta que solamente quiero respuestas sencillas, el formato con el que me vas a responder quiero que sea el siguiente: 
+Desayuno: Tu respuesta,Almuerzo: Tu respuesta,Merienda: Tu respuesta,Cena: Tu respuesta,Snack: Tu respuesta,Postre: Tu respuesta
+Aparte de esto quiero que tú nunca uses, comas, paréntesis ni comillas en tus respuestas y solamente quiero que seas conciso con lo que te pido y el formato que te doy, recuerda solamente utilizar comas para separar las comidas del dia y me des lo que necesito.
+Ahora quiero que bases tus respuestas en esto: {user_input} quiero que tengas en cuenta las macros de la persona que son las siguientes: las proteinas recomendandas del usuario son {proteinas}gramos, los carbohidratos recomendados son {carbohidratos} gramos y las grasas recomendadas son {grasas} gramos"""
+        except ObjectDoesNotExist:
+            solicitud = f"""Quiero que actúes como un nutricionista que sabe muchos platillos distintos. Necesito que me des 6 comidas para un día completo teniendo en cuenta que solamente quiero respuestas sencillas, el formato con el que me vas a responder quiero que sea el siguiente: 
 Desayuno: Tu respuesta,Almuerzo: Tu respuesta,Merienda: Tu respuesta,Cena: Tu respuesta,Snack: Tu respuesta,Postre: Tu respuesta
 Aparte de esto quiero que tú nunca uses, comas, paréntesis ni comillas en tus respuestas y solamente quiero que seas conciso con lo que te pido y me des lo que necesito.
 Ahora quiero que bases tus respuestas en esto: {user_input}"""
@@ -196,11 +208,6 @@ def macros(request):
         p3 = calorias*0.3
         p3 = round((p3/9),1)
         calorias = round(calorias,1)
-        
-        print(p1)
-        print(p2)
-        print(p3)
-        print(calorias)
             
         p,coso = Macros.objects.update_or_create(
                     user=request.user,
@@ -213,3 +220,55 @@ def macros(request):
 @login_required
 def rutinas(request):
     return render(request, 'rutinas.html')
+
+@login_required
+def semanalDieta(request):
+    if request.method == 'POST':
+        if request.POST.get('action') == 'Save':
+            jsonsito = request.POST.get('r') 
+            jsonsito = repuestaJson(jsonsito)
+            
+            Dieta_Semanal.objects.update_or_create(user = request.user, defaults={'horario':jsonsito})
+            return redirect('main')
+            
+            
+        user_input = request.POST.get('user_input')
+        try:
+            data_macros = Macros.objects.get(user = request.user)
+            proteinas = data_macros.proteinas
+            grasas = data_macros.grasas
+            carbohidratos = data_macros.carbohidratos
+            solicitud = """Quiero que actues como nutricionista deportivo, sabes lo que son las macros de una persona y lo que deberia comer en el dia. Quiero que me des en un formato Json como este: {"Lunes":{"Desayuno":"Tu respuesta", "Almuerzo":"Tu respuesta", "Merienda":"Tu respuesta", "Cena":"Tu respuesta", "Snack":"Tu respuesta", "Postre":"Tu respuesta"}, "Martes":{"Desayuno":"Tu respuesta", "Almuerzo":"Tu respuesta", "Merienda":"Tu respuesta", "Cena":"Tu respuesta", "Snack":"Tu respuesta", "Postre":"Tu respuesta"}, "Miercoles":{"Desayuno":"Tu respuesta", "Almuerzo":"Tu respuesta", "Merienda":"Tu respuesta", "Cena":"Tu respuesta", "Snack":"Tu respuesta", "Postre":"Tu respuesta"}, "Jueves":{"Desayuno":"Tu respuesta", "Almuerzo":"Tu respuesta", "Merienda":"Tu respuesta", "Cena":"Tu respuesta", "Snack":"Tu respuesta", "Postre":"Tu respuesta"}, "Viernes":{"Desayuno":"Tu respuesta", "Almuerzo":"Tu respuesta", "Merienda":"Tu respuesta", "Cena":"Tu respuesta", "Snack":"Tu respuesta", "Postre":"Tu respuesta"}, "Sabado":{"Desayuno":"Tu respuesta", "Almuerzo":"Tu respuesta", "Merienda":"Tu respuesta", "Cena":"Tu respuesta", "Snack":"Tu respuesta", "Postre":"Tu respuesta"}, "Domingo":{"Desayuno":"Tu respuesta", "Almuerzo":"Tu respuesta", "Merienda":"Tu respuesta", "Cena":"Tu respuesta", "Snack":"Tu respuesta", "Postre":"Tu respuesta"}}
+
+En donde dice "Tu respuesta" tu vas a darme una recomendacion para comer basada en lo siguiente:""" + f""" {user_input}, Ademas quiero que tengas en cuenta las macros de la persona que son las siguientes: las proteinas recomendandas del usuario son {proteinas}gramos, los carbohidratos recomendados son {carbohidratos} gramos y las grasas recomendadas son {grasas} gramos.
+Recuerda que no quiero que me des cualquier otro tipo de respuesta aparte del Json"""
+        except ObjectDoesNotExist:
+            solicitud = """Quiero que actues como nutricionista deportivo, sabes lo que son las macros de una persona y lo que deberia comer en el dia. Quiero que me des en un formato Json como este: {"Lunes":{"Desayuno":"Tu respuesta", "Almuerzo":"Tu respuesta", "Merienda":"Tu respuesta", "Cena":"Tu respuesta", "Snack":"Tu respuesta", "Postre":"Tu respuesta"}, "Martes":{"Desayuno":"Tu respuesta", "Almuerzo":"Tu respuesta", "Merienda":"Tu respuesta", "Cena":"Tu respuesta", "Snack":"Tu respuesta", "Postre":"Tu respuesta"}, "Miercoles":{"Desayuno":"Tu respuesta", "Almuerzo":"Tu respuesta", "Merienda":"Tu respuesta", "Cena":"Tu respuesta", "Snack":"Tu respuesta", "Postre":"Tu respuesta"}, "Jueves":{"Desayuno":"Tu respuesta", "Almuerzo":"Tu respuesta", "Merienda":"Tu respuesta", "Cena":"Tu respuesta", "Snack":"Tu respuesta", "Postre":"Tu respuesta"}, "Viernes":{"Desayuno":"Tu respuesta", "Almuerzo":"Tu respuesta", "Merienda":"Tu respuesta", "Cena":"Tu respuesta", "Snack":"Tu respuesta", "Postre":"Tu respuesta"}, "Sabado":{"Desayuno":"Tu respuesta", "Almuerzo":"Tu respuesta", "Merienda":"Tu respuesta", "Cena":"Tu respuesta", "Snack":"Tu respuesta", "Postre":"Tu respuesta"}, "Domingo":{"Desayuno":"Tu respuesta", "Almuerzo":"Tu respuesta", "Merienda":"Tu respuesta", "Cena":"Tu respuesta", "Snack":"Tu respuesta", "Postre":"Tu respuesta"}}
+
+En donde dice "Tu respuesta" tu vas a darme una recomendacion para comer basada en lo siguiente:""" + f""" {user_input}.
+Recuerda que no quiero que me des cualquier otro tipo de respuesta aparte del Json"""
+        respuesta = get_completion(solicitud)
+        # Crear un diccionario con las comidas generadas para inicializar el formulario
+        x = repuestaJson(respuesta)
+        return render(request, 'dietaSemanal.html', {'respuesta': x, 'osea': respuesta})
+        
+        
+
+    # Renderizar la plantilla dieta.html con el formulario en el contexto
+    
+    
+    return render(request, 'dietaSemanal.html')
+
+@login_required
+def vista_dieta(request):
+    try:
+        x = Dieta_Semanal.objects.get(user= request.user)
+        x = x.horario
+        return render(request, 'visualDieta.html', {'respuesta': x})
+
+    except ObjectDoesNotExist:
+        x = True
+        return render(request, 'visualDieta.html', {'error': x})
+    
+        
+        

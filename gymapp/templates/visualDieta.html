@@ -66,27 +66,26 @@
     </style>
 </head>
 <body>
-
+    {% if error %}
 <div class="container">
-    <h1>Dieta</h1>
+    <h1>No weekly diet has been saved</h1>
 
     <a href="/main" class="return-link">Return</a>
-    <a href="/main/dietaS/" class="return-link">Weekly Diet</a>
+    {% endif %}
+    {% if respuesta %}
+<div class="container">
+    <h1>Tu dieta guardada:</h1>
 
-    <form action="" method="POST">
-        {% csrf_token %}
-        <input type="text" name="user_input" placeholder="Enter your input here">
-        <button type="submit">Generate Menu</button>
-    </form>
-
-    {% if form %}
-    <form action="" method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <div class="form-actions">
-            <button type="submit" name="action" value="Save">Save</button>
-        </div>
-    </form>
+    <a href="/main" class="return-link">Return</a>
+        
+        {% for dia, comidas in respuesta.items %}
+            <h2>{{ dia }}</h2>
+            <ul>
+                {% for comida, descripcion in comidas.items %}
+                    <li><strong>{{ comida }}:</strong> {{ descripcion }}</li>
+                {% endfor %}
+            </ul>
+        {% endfor %}
     {% endif %}
 </div>
 

@@ -113,6 +113,11 @@
             <li><strong>{{ key }}:</strong> {{ value }}</li>
             {% endfor %}
         </ul>
+        <form method="POST"  action="did/">
+            {% csrf_token %}
+            <input type="hidden" name="r" value="{{ respuestaV }}">
+            <button type="submit" name="action" value="Go">Did</button>
+        </form>
         {% endif %}
     </div>
 </div>

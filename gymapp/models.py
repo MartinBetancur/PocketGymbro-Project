@@ -125,7 +125,7 @@ class Equipamiento_Del_Usuario(models.Model):
     equp_casa = models.TextField(default=None)
 
 class Lesiones(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     lesion = models.TextField(default=None)
 
 

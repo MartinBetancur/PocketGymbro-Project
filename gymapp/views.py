@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Perfil,Equipamiento_Del_Usuario,DietaDiaria, Macros, Dieta_Semanal
+from .models import Perfil,Equipamiento_Del_Usuario,DietaDiaria, Macros, Dieta_Semanal,Historial,Lesiones
 from .forms import SignUpForm,CustomAuthenticationForm, PerfilForm, EquipamientoForm, DietaDiariaForm
 from datetime import datetime
 from django.contrib.auth import login
@@ -309,5 +309,27 @@ def vista_dieta(request):
         x = True
         return render(request, 'visualDieta.html', {'error': x})
     
+@login_required
+def rutina_go(request):
+    if request.method == 'POST':
         
+        if request.POST.get('action') == 'Save':
+            respuesta_v = repuestaJson(request.POST.get('r'))
+            opinion = int(request.POST.get('opinion'))
+            lesiones = request.POST.get('lesiones')
+            print(lesiones)
+            if lesiones == '':
+                lesiones = 'Ninguna'
+                Historial.objects.create(user = request.user, fecha = datetime.now(), rutina = respuesta_v, opinion = opinion, lesiones = lesiones)
+            else:
+                Historial.objects.create(user = request.user, fecha = datetime.now(), rutina = respuesta_v, opinion = opinion, lesiones = lesiones)
+                Lesiones.objects.create(user = request.user, lesion = lesiones)
+            return redirect('main')
+        respuesta_v = request.POST.get('r')
+        return render(request, 'rutinaDid.html', {'r':respuesta_v})
+        
+    else:
+        return redirect('main')
+    
+    
         

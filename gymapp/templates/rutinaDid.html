@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opinions</title>
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
+    <script>
+        function toggleLesionDescription() {
+            const checkbox = document.getElementById('id_lesion_checkbox');
+            const lesionDescription = document.getElementById('lesion_description');
+            if (checkbox.checked) {
+                lesionDescription.classList.remove('hidden');
+                document.getElementById('id_lesiones').required = true;
+            } else {
+                lesionDescription.classList.add('hidden');
+                document.getElementById('id_lesiones').required = false;
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Opinions About the Routine</h1>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div>
+            <label for="id_lesion_checkbox">¿Sufriste una lesión?</label>
+            <input type="checkbox" id="id_lesion_checkbox" name="lesion_checkbox" onchange="toggleLesionDescription()">
+        </div>
+        <div id="lesion_description" class="hidden">
+            <label for="id_lesiones">Describa la lesión:</label>
+            <textarea name="lesiones" id="id_lesiones" cols="40" rows="5"></textarea>
+        </div>
+        <div>
+            <label for="id_opinion">Opinión:</label>
+            <select name="opinion" id="id_opinion" required>
+                <option value="">Select</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+            <input type="hidden" name="r" value="{{ r }}" id="r">
+        </div>
+        <div>
+            <button type="submit" name="action" value="Save">Save</button>
+        </div>
+    </form>
+</body>
+</html>

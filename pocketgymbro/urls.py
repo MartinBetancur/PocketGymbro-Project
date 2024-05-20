@@ -44,6 +44,7 @@ urlpatterns = [
     path('main/dietbot/', gymappViews.dietBot, name='dieta'),
     path('main/macrosCalc/', gymappViews.macros, name='macros'),
     path('main/rutinas/', gymappViews.rutinas, name='rutina'),
+    path('main/rutinas/did/', gymappViews.rutina_go, name='rutinaDid'),
     path('main/dietaS/', gymappViews.semanalDieta, name='dSemanal'),
     path('main/visualDieta/', gymappViews.vista_dieta, name='visualD'),
 

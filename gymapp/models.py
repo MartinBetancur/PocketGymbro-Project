@@ -15,8 +15,6 @@ class CondicionFisica(models.IntegerChoices):
     NUEVE = 9, '9'
     DIEZ = 10, '10'
 
-
-
 class Perfil(models.Model):
     DEPORTE_CHOICES = [
         ('SOCCER', 'Soccer'),
@@ -127,8 +125,8 @@ class Equipamiento_Del_Usuario(models.Model):
 class Lesiones(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     lesion = models.TextField(default=None)
-
-
+    estado = models.BooleanField(default=False)
+    fecha = models.DateField(default=None)
 
 class Macros(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -140,9 +138,7 @@ class Macros(models.Model):
 class Dieta_Semanal(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     horario = models.JSONField()
-    
 
 class Rutina_Semanal(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    horario = models.JSONField()
-    
+    horario = models.JSONField()    

@@ -47,6 +47,9 @@ urlpatterns = [
     path('main/rutinas/did/', gymappViews.rutina_go, name='rutinaDid'),
     path('main/dietaS/', gymappViews.semanalDieta, name='dSemanal'),
     path('main/visualDieta/', gymappViews.vista_dieta, name='visualD'),
+    path('main/historial_R/', gymappViews.historial_rutinas, name='histR'),
+    path('main/lesiones/', gymappViews.chatLesiones, name='inj'),
+    path('main/lesiones/bot/', gymappViews.botLesiones, name='lesiobot'),
 
 ]
 

@@ -323,7 +323,7 @@ def rutina_go(request):
                 Historial.objects.create(user = request.user, fecha = datetime.now(), rutina = respuesta_v, opinion = opinion, lesiones = lesiones)
             else:
                 Historial.objects.create(user = request.user, fecha = datetime.now(), rutina = respuesta_v, opinion = opinion, lesiones = lesiones)
-                Lesiones.objects.create(user = request.user, lesion = lesiones)
+                Lesiones.objects.create(user = request.user, lesion = lesiones, estado = False, fecha = datetime.now())
             return redirect('main')
         respuesta_v = request.POST.get('r')
         return render(request, 'rutinaDid.html', {'r':respuesta_v})
@@ -331,5 +331,52 @@ def rutina_go(request):
     else:
         return redirect('main')
     
-    
+
+@login_required
+def historial_rutinas(request):
+
+    rutinas = Historial.objects.filter(user = request.user)
+    if not rutinas:
         
+        papadio = True
+        return render(request, 'historial_r.html', {'noR': papadio })
+    else:
+        
+        return render(request,'historial_r.html', {'hist':rutinas})
+        
+@login_required
+def chatLesiones(request):
+    if request.method == 'POST':
+        lesion_id = request.POST.get('lesion_id')
+        
+        lesion = Lesiones.objects.get(id=lesion_id)
+        # Cambiar el estado de la lesión
+        lesion.estado = not lesion.estado  # Cambiar entre True y False
+        lesion.save()
+        return redirect('/main/lesiones/')
+
+        
+    else:
+
+        les = Lesiones.objects.filter(user = request.user)
+        if not les:
+            
+            return render(request, 'lesionesBot.html')
+
+        return render(request, 'lesionesBot.html', {'les':les})
+    
+@login_required
+def botLesiones(request):
+    if request.method == 'POST':
+        if request.POST.get('action') == 'chat':
+            res = request.POST.get('user_input')
+            les = request.POST.get('lesion')
+            solicitud = f'''Quiero que actues como un medico deportivo, y le propongas ejercicios de recuperacion para ciertas lesiones, en este caso la lesion es: {les}, 
+        ademas la persona puede que te de detalles extra en este caso son:{res}, si la persona no te da detalles adicionales basate en la lesion antes dada'''
+            solicitud = get_completion(solicitud)
+            return render(request, 'chatBotLesiones.html', {'respuesta':solicitud})
+        les = request.POST.get('lesion')
+        
+        return render(request, 'chatBotLesiones.html',{'lesion':les})
+    else:
+        redirect('/main/lesiones/')

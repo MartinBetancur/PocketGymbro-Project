@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Routine History</title>
+    <style>
+        .cover {
+            background-image: url('/static/images/third.jpg') !important;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .return-link {
+            display: block;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        button[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .form-actions {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="cover">
+    <div class="container">
+        <h1>Routine History</h1>
+        <a href="/main" class="return-link">Return</a>
+        
+        {% if hist %}
+        {% for historial in hist %}
+        <div class="routine-entry">
+            <p><strong>Fecha:</strong> {{ historial.fecha }}</p>
+            <h2>Rutina de Ejercicio</h2>
+            <p><strong>Tiempo Aproximado:</strong> {{ historial.rutina.Tiempo_Aproximado }}</p>
+            <p><strong>Tiempo de Descanso:</strong> {{ historial.rutina.Tiempo_de_Descanso }}</p>
+            <p><strong>Calentamiento:</strong> {{ historial.rutina.Calentamiento }}</p>
+            <p><strong>Número de series por ejercicio:</strong> {{ historial.rutina.Numero_de_series_por_ejercicio }}</p>
+
+            <h3>Ejercicios</h3>
+            <ul>
+                {% for key, value in historial.rutina.Ejercicios.items %}
+                <li><strong>{{ key }}:</strong> {{ value }}</li>
+                {% endfor %}
+            </ul>
+            <p><strong>Lesiones:</strong> {{ historial.lesiones }}</p>
+            <p><strong>Opinión:</strong> {{ historial.opinion }}</p>
+        </div>
+        {% endfor %}
+        {% else %}
+        <h2>No se encontraron rutinas.</h2>
+        {% endif %}
+    </div>
+</div>
+</body>
+</html>

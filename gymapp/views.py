@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Perfil,Equipamiento_Del_Usuario,DietaDiaria, Macros, Dieta_Semanal,Historial,Lesiones
+from .models import Perfil,Equipamiento_Del_Usuario,DietaDiaria, Macros, Dieta_Semanal,Historial,Lesiones, Rutina_Semanal
 from .forms import SignUpForm,CustomAuthenticationForm, PerfilForm, EquipamientoForm, DietaDiariaForm
 from datetime import datetime
 from django.contrib.auth import login
@@ -385,8 +385,12 @@ def botLesiones(request):
 def weeklyRutina(request):
     if request.method == 'POST':
         
-        if request.POST.get('action') == 'Go':
-            pass
+        if request.POST.get('action') == 'Save':
+            respuesta_v = repuestaJson(request.POST.get('r'))
+            Rutina_Semanal.objects.update_or_create(user = request.user, defaults={'horario':respuesta_v})
+            return redirect('/main')
+            
+
         user_input = request.POST.get('user_input')
         place = request.POST.get('place')
         perfil = Perfil.objects.get(user = request.user)
@@ -412,12 +416,11 @@ def weeklyRutina(request):
         solicitud = '''Necesito que actues como un entrenador deportivo de alta calidad, tu proposito es dar excelente rutinas de ejercicio para las personas dependiendo de las distintas caracteristicas de la persona en si. La rutina que vas a proporcionar va a ser en formato json de la manera que te voy a decir a continuación: {"Lunes":{"Tiempo_Aproximado" : "Tu respuesta", "Tiempo_de_Descanso": "Tu respuesta", "Calentamiento" : "Tu respuesta" , "Ejercicios" : {"Ejercicio_1": "Tu respuesta", "Ejercicio_2": "Tu respuesta", "Ejercicio_3": "Tu respuesta", "Ejercicio_4": "Tu respuesta", "Ejercicio_5": "Tu respuesta", "Ejercicio_6": "Tu respuesta",.....,"Ejercicio_n":"Tu respuesta"}}, "Martes":{"Tiempo_Aproximado" : "Tu respuesta", "Tiempo_de_Descanso": "Tu respuesta", "Calentamiento" : "Tu respuesta" , "Ejercicios" : {"Ejercicio_1": "Tu respuesta", "Ejercicio_2": "Tu respuesta", "Ejercicio_3": "Tu respuesta", "Ejercicio_4": "Tu respuesta", "Ejercicio_5": "Tu respuesta", "Ejercicio_6": "Tu respuesta",.....,"Ejercicio_n":"Tu respuesta"}}, "Miercoles":{"Tiempo_Aproximado" : "Tu respuesta", "Tiempo_de_Descanso": "Tu respuesta", "Calentamiento" : "Tu respuesta" , "Ejercicios" : {"Ejercicio_1": "Tu respuesta", "Ejercicio_2": "Tu respuesta", "Ejercicio_3": "Tu respuesta", "Ejercicio_4": "Tu respuesta", "Ejercicio_5": "Tu respuesta", "Ejercicio_6": "Tu respuesta",.....,"Ejercicio_n":"Tu respuesta"}}, "Jueves":{"Tiempo_Aproximado" : "Tu respuesta", "Tiempo_de_Descanso": "Tu respuesta", "Calentamiento" : "Tu respuesta" , "Ejercicios" : {"Ejercicio_1": "Tu respuesta", "Ejercicio_2": "Tu respuesta", "Ejercicio_3": "Tu respuesta", "Ejercicio_4": "Tu respuesta", "Ejercicio_5": "Tu respuesta", "Ejercicio_6": "Tu respuesta",.....,"Ejercicio_n":"Tu respuesta"}}, "Viernes":{"Tiempo_Aproximado" : "Tu respuesta", "Tiempo_de_Descanso": "Tu respuesta", "Calentamiento" : "Tu respuesta" , "Ejercicios" : {"Ejercicio_1": "Tu respuesta", "Ejercicio_2": "Tu respuesta", "Ejercicio_3": "Tu respuesta", "Ejercicio_4": "Tu respuesta", "Ejercicio_5": "Tu respuesta", "Ejercicio_6": "Tu respuesta",.....,"Ejercicio_n":"Tu respuesta"}}, "Sabado":{"Tiempo_Aproximado" : "Tu respuesta", "Tiempo_de_Descanso": "Tu respuesta", "Calentamiento" : "Tu respuesta" , "Ejercicios" : {"Ejercicio_1": "Tu respuesta", "Ejercicio_2": "Tu respuesta", "Ejercicio_3": "Tu respuesta", "Ejercicio_4": "Tu respuesta", "Ejercicio_5": "Tu respuesta", "Ejercicio_6": "Tu respuesta",.....,"Ejercicio_n":"Tu respuesta"}}, "Domingo":{"Tiempo_Aproximado" : "Tu respuesta", "Tiempo_de_Descanso": "Tu respuesta", "Calentamiento" : "Tu respuesta" , "Ejercicios" : {"Ejercicio_1": "Tu respuesta", "Ejercicio_2": "Tu respuesta", "Ejercicio_3": "Tu respuesta", "Ejercicio_4": "Tu respuesta", "Ejercicio_5": "Tu respuesta", "Ejercicio_6": "Tu respuesta",.....,"Ejercicio_n":"Tu respuesta"}}}
 
 '''+ f'''Las caracteristicas de la persona son las siguientes: Genero: {genero}, Objetivo: {objetivo}, Edad: {edad} años, Condiciones medicas: {condiciones}, Deporte practicado: {deporte}, Equipamiento para entrenar: {equipa}, Lugar de entreno: {place}
-La cantidad de ejercicios depende de tu criterio o de lo que la persona especifique, lo mismo con la el tiempo aproximado y el tiempo de descanso. Estas son las cualidades especificas que quiere la persona en su rutina: {user_input}. Dado el caso que la persona no especifique nada, o lo que te haya dicho no tenga nada de relevancia, elige por ella lo mas adecuado basado en los datos que se te han dado.'''+ ''' Si la persona señala que quiere descansar unos dias, por ejemplo sabado, al momento de tu generar el json ese dia o dias especificos colocaras esto: "Sabado":{"Descanso":"Descanso"}, ten esto en cuenta.
+La cantidad de ejercicios depende de tu criterio o de lo que la persona especifique, lo mismo con la el tiempo aproximado y el tiempo de descanso. Estas son las cualidades especificas que quiere la persona en su rutina: {user_input}. Dado el caso que la persona no especifique nada, o lo que te haya dicho no tenga nada de relevancia, elige por ella lo mas adecuado basado en los datos que se te han dado.'''+ ''' Si la persona señala que quiere descansar unos dias, por ejemplo sabado, al momento de tu generar el json ese dia o dias especificos colocaras esto: "Sabado":{"Descanso":"Descanso"}, TEN MUY ENCUENTA ESTO.
 
 Por ultimo solamente quiero que la respuesta que me des sea el json, no quiero que me des ningun mensaje mas para que des un mejor rendimiento.'''
         respuestaVanilla = get_completion(solicitud)
         respuestaDict = repuestaJson(respuestaVanilla)
-        print(respuestaDict)
 
         return render(request, 'rutina_s.html', {'respuestaV': respuestaVanilla, 'entreno': respuestaDict})
     else:
@@ -426,3 +429,12 @@ Por ultimo solamente quiero que la respuesta que me des sea el json, no quiero q
     
 def custom_404(request, exception):
     return render(request, '404.html', status=404)
+
+@login_required
+def verRutinaSemanal(request):
+    try:
+        rutina = Rutina_Semanal.objects.get(user = request.user).horario
+        return render(request, 'visualRutina.html', {'entreno': rutina})
+    except ObjectDoesNotExist:
+        return render(request, 'visualRutina.html')
+

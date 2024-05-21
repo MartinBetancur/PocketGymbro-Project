@@ -107,18 +107,6 @@
                 <h1>Weekly Routine </h1>
 
                 <a href="/main" class="return-link">Return</a>
-
-                <form action="" method="POST">
-                    {% csrf_token %}
-                    <input type="text" name="user_input" placeholder="Enter your ideas">
-                    <label for="">Where are you going to train?</label>
-                    <select name="place" id="place" required>
-                        <option value="">Select</option>
-                        <option value="Gym">Gym</option>
-                        <option value="Home">Home</option>
-                    </select>
-                    <button type="submit">Generate A Routine</button>
-                </form>
                 {% if entreno %}
                 <h1>Plan de Entrenamiento</h1>
                 {% for dia, detalles in entreno.items %}
@@ -140,11 +128,8 @@
                 {% endfor %}
                 {% endif %}
                 {% endfor %}
-                <form method="POST" action="">
-                    {% csrf_token %}
-                    <input type="hidden" name="r" value="{{ respuestaV }}">
-                    <button type="submit" name="action" value="Save">Save</button>
-                </form>
+                {% else %}
+                <h1>No tienes una rutina semanal</h1>
                 {% endif %}
             </div>
         </div>

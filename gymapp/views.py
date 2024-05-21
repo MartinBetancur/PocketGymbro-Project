@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Perfil,Equipamiento_Del_Usuario,DietaDiaria, Macros, Dieta_Semanal,Historial,Lesiones
-from .forms import SignUpForm,CustomAuthenticationForm, PerfilForm, EquipamientoForm, DietaDiariaForm
+from .forms import SignUpForm,CustomAuthenticationForm, PerfilForm, EquipamientoForm, DietaDiariaForm, WorkoutScheduleForm
 from datetime import datetime
 from django.contrib.auth import login
 from django.contrib.auth import logout as django_logout
@@ -8,6 +8,10 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from gymapp.testApi import get_completion, macrosCalc, calcular_edad, repuestaJson
 from .forms import EvaluacionRutinaForm
+import os
+import json
+
+
 def signin(request):
     if request.method == 'POST':
         form = CustomAuthenticationForm(request, request.POST)
@@ -387,3 +391,36 @@ def botLesiones(request):
         return render(request, 'chatBotLesiones.html',{'lesion':les})
     else:
         redirect('/main/lesiones/')
+        
+@login_required
+def workout_schedule(request):
+    if request.method == 'POST':
+        form = WorkoutScheduleForm(request.POST)
+        if form.is_valid():
+            dias_por_semana = form.cleaned_data['dias_por_semana']
+            user_profile = Perfil.objects.get(user=request.user)
+            objetivos = user_profile.objetivos
+            deporte_practicado = user_profile.deporte_practicado
+
+            prompt = (
+                f"Genera un plan de entrenamiento para un mes, entrenando {dias_por_semana} veces por semana. "
+                f"Los objetivos del usuario son {objetivos} y practica {deporte_practicado}. "
+                "Solo necesito el enfoque del entrenamiento para cada día. La respuesta debe estar en el formato: "
+                "Lunes: Entrenar pierna, Martes: descanso, Miércoles: Espalda, etc. "
+                "Repite este formato para un mes completo."
+            )
+
+            response = get_completion(prompt)
+            schedule = response.strip().split('\n')
+
+            # Procesar el resultado en una lista de diccionarios
+            parsed_schedule = []
+            for line in schedule:
+                if ":" in line:
+                    day, activity = line.split(":", 1)
+                    parsed_schedule.append({'day': day.strip(), 'activity': activity.strip()})
+
+            return render(request, 'workout_schedule.html', {'schedule': parsed_schedule})
+    else:
+        form = WorkoutScheduleForm()
+    return render(request, 'workout_schedule_form.html', {'form': form})

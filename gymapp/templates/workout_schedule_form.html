@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generar Plan de Entrenamiento</title>
+</head>
+<body>
+    <h1>Generar Plan de Entrenamiento</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Generar Plan</button>
+    </form>
+</body>
+</html>

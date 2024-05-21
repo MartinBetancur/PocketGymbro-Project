@@ -37,3 +37,6 @@ class EvaluacionRutinaForm(forms.ModelForm):
             'opinion': forms.RadioSelect,
             'comentarios': forms.Textarea(attrs={'rows': 4}),
         }
+        
+class WorkoutScheduleForm(forms.Form):
+    dias_por_semana = forms.IntegerField(label='Días por semana de entrenamiento', min_value=1, max_value=7)

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan de Entrenamiento</title>
+</head>
+<body>
+    <h1>Plan de Entrenamiento</h1>
+    <table>
+        <tr>
+            <th>Día</th>
+            <th>Actividad</th>
+        </tr>
+        {% for item in schedule %}
+        <tr>
+            <td>{{ item.day }}</td>
+            <td>{{ item.activity }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

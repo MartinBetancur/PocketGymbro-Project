@@ -405,9 +405,9 @@ def workout_schedule(request):
             prompt = (
                 f"Genera un plan de entrenamiento para un mes, entrenando {dias_por_semana} veces por semana. "
                 f"Los objetivos del usuario son {objetivos} y practica {deporte_practicado}. "
-                "Solo necesito el enfoque del entrenamiento para cada día. La respuesta debe estar en el formato: "
-                "Lunes: Entrenar pierna, Martes: descanso, Miércoles: Espalda, etc. "
-                "Repite este formato para un mes completo."
+                "Solo necesito el enfoque del entrenamiento para cada día. Asegúrate de que cada semana sea diferente. "
+                "La respuesta debe estar en el formato: Lunes: Entrenar pierna, Martes: descanso, Miércoles: Espalda, etc. "
+                "Repite este formato para un mes completo con variaciones semanales."
             )
 
             response = get_completion(prompt)

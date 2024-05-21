@@ -96,14 +96,14 @@
                 <p><strong>Lesion:</strong> {{ lesion.lesion }}</p>
                 <p><strong>Estado:</strong>
                     {% if lesion.estado %}
-                    Recuperado!
+                    Recuperado!</p>
                     <form method="POST" action="">
                         {% csrf_token %}
                         <input type="hidden" name="lesion_id" value="{{ lesion.id }}">
                         <button type="submit">Cambiar Estado</button>
                     </form>
                     {% else %}
-                    Recuperandose D:
+                    Recuperandose D:</p>
                     <form method="POST"  action="bot/">
                         {% csrf_token %}
                         <input type="hidden" name="lesion" id="lesion" value="{{ lesion.lesion }}">

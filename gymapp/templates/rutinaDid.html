@@ -3,10 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Opinions</title>
+    <title>Opiniones</title>
     <style>
-        .hidden {
-            display: none;
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .cover {
+            background-image: url('/static/images/third.jpg') !important;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="checkbox"], select, textarea, button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        textarea {
+            resize: vertical;
+        }
+        button {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button {
+            font-family: "Open Sans", sans-serif;
+            font-size: 16px;
+            letter-spacing: 2px;
+            text-decoration: none;
+            text-transform: uppercase;
+            color: #000;
+            cursor: pointer;
+            border: 3px solid;
+            padding: 0.25em 0.5em;
+            box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px;
+            position: relative;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+        }
+
+        button:active {
+            box-shadow: 0px 0px 0px 0px;
+            top: 5px;
+            left: 5px;
         }
     </style>
     <script>
@@ -24,37 +103,42 @@
     </script>
 </head>
 <body>
-    <h1>Opinions About the Routine</h1>
-    <form action="" method="POST">
-        {% csrf_token %}
-        <div>
-            <label for="id_lesion_checkbox">¿Sufriste una lesión?</label>
-            <input type="checkbox" id="id_lesion_checkbox" name="lesion_checkbox" onchange="toggleLesionDescription()">
-        </div>
-        <div id="lesion_description" class="hidden">
-            <label for="id_lesiones">Describa la lesión:</label>
-            <textarea name="lesiones" id="id_lesiones" cols="40" rows="5"></textarea>
-        </div>
-        <div>
-            <label for="id_opinion">Opinión:</label>
-            <select name="opinion" id="id_opinion" required>
-                <option value="">Select</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-            </select>
-            <input type="hidden" name="r" value="{{ r }}" id="r">
-        </div>
-        <div>
-            <button type="submit" name="action" value="Save">Save</button>
-        </div>
-    </form>
+    <div class="cover">
+
+        <div class="container">
+            <h1>Opiniones Sobre la Rutina</h1>
+            <form action="" method="POST">
+                {% csrf_token %}
+                <div>
+                    <label for="id_lesion_checkbox">¿Sufriste una lesión?</label>
+                    <input type="checkbox" id="id_lesion_checkbox" name="lesion_checkbox" onchange="toggleLesionDescription()">
+                </div>
+                <div id="lesion_description" class="hidden">
+                    <label for="id_lesiones">Describa la lesión:</label>
+                    <textarea name="lesiones" id="id_lesiones" cols="40" rows="5"></textarea>
+                </div>
+            <div>
+                <label for="id_opinion">Opinión:</label>
+                <select name="opinion" id="id_opinion" required>
+                    <option value="">Seleccionar</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                </select>
+                <input type="hidden" name="r" value="{{ r }}" id="r">
+            </div>
+            <div>
+                <button type="submit" name="action" value="Save">Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>
 </body>
 </html>

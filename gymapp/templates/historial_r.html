@@ -27,14 +27,12 @@
             background-color: #f8f9fa;
         }
 
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+        .content {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px 0;
+}
 
         h1 {
             text-align: center;
@@ -78,22 +76,30 @@
         .form-actions {
             text-align: center;
         }
+        .content-container {
+    overflow-y: auto;
+    position: relative;
+    max-height: 100%;
+    width: 80%;
+}
     </style>
 </head>
 <body>
 <div class="cover">
-    <div class="container">
-        <h1>Routine History</h1>
-        <a href="/main" class="return-link">Return</a>
-        
-        {% if hist %}
-        {% for historial in hist %}
-        <div class="routine-entry">
-            <p><strong>Fecha:</strong> {{ historial.fecha }}</p>
-            <h2>Rutina de Ejercicio</h2>
-            <p><strong>Tiempo Aproximado:</strong> {{ historial.rutina.Tiempo_Aproximado }}</p>
-            <p><strong>Tiempo de Descanso:</strong> {{ historial.rutina.Tiempo_de_Descanso }}</p>
-            <p><strong>Calentamiento:</strong> {{ historial.rutina.Calentamiento }}</p>
+    <div class="content-container">
+
+        <div class="content">
+            <h1>Routine History</h1>
+            <a href="/main" class="return-link">Return</a>
+            
+            {% if hist %}
+            {% for historial in hist %}
+            <div class="routine-entry">
+                <p><strong>Fecha:</strong> {{ historial.fecha }}</p>
+                <h2>Rutina de Ejercicio</h2>
+                <p><strong>Tiempo Aproximado:</strong> {{ historial.rutina.Tiempo_Aproximado }}</p>
+                <p><strong>Tiempo de Descanso:</strong> {{ historial.rutina.Tiempo_de_Descanso }}</p>
+                <p><strong>Calentamiento:</strong> {{ historial.rutina.Calentamiento }}</p>
             <p><strong>Número de series por ejercicio:</strong> {{ historial.rutina.Numero_de_series_por_ejercicio }}</p>
 
             <h3>Ejercicios</h3>
@@ -110,6 +116,7 @@
         <h2>No se encontraron rutinas.</h2>
         {% endif %}
     </div>
+</div>
 </div>
 </body>
 </html>

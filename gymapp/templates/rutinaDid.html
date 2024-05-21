@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Opinions</title>
+    <title>Opinión sobre la Rutina</title>
     <style>
         .hidden {
             display: none;
@@ -24,7 +24,7 @@
     </script>
 </head>
 <body>
-    <h1>Opinions About the Routine</h1>
+    <h1>Opinión sobre la Rutina</h1>
     <form action="" method="POST">
         {% csrf_token %}
         <div>
@@ -38,7 +38,7 @@
         <div>
             <label for="id_opinion">Opinión:</label>
             <select name="opinion" id="id_opinion" required>
-                <option value="">Select</option>
+                <option value="">Seleccione</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -53,7 +53,11 @@
             <input type="hidden" name="r" value="{{ r }}" id="r">
         </div>
         <div>
-            <button type="submit" name="action" value="Save">Save</button>
+            <label for="id_comentarios">Comentarios:</label>
+            <textarea name="comentarios" id="id_comentarios" cols="40" rows="5"></textarea>
+        </div>
+        <div>
+            <button type="submit" name="action" value="Save">Guardar</button>
         </div>
     </form>
 </body>

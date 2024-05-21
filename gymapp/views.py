@@ -7,7 +7,7 @@ from django.contrib.auth import logout as django_logout
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from gymapp.testApi import get_completion, macrosCalc, calcular_edad, repuestaJson
-
+from .forms import EvaluacionRutinaForm
 def signin(request):
     if request.method == 'POST':
         form = CustomAuthenticationForm(request, request.POST)
@@ -312,22 +312,29 @@ def vista_dieta(request):
 @login_required
 def rutina_go(request):
     if request.method == 'POST':
-        
         if request.POST.get('action') == 'Save':
             respuesta_v = repuestaJson(request.POST.get('r'))
             opinion = int(request.POST.get('opinion'))
-            lesiones = request.POST.get('lesiones')
-            print(lesiones)
-            if lesiones == '':
-                lesiones = 'Ninguna'
-                Historial.objects.create(user = request.user, fecha = datetime.now(), rutina = respuesta_v, opinion = opinion, lesiones = lesiones)
-            else:
-                Historial.objects.create(user = request.user, fecha = datetime.now(), rutina = respuesta_v, opinion = opinion, lesiones = lesiones)
-                Lesiones.objects.create(user = request.user, lesion = lesiones, estado = False, fecha = datetime.now())
+            lesiones = request.POST.get('lesiones', 'Ninguna')
+            comentarios = request.POST.get('comentarios', '')  # Nuevo campo para comentarios
+
+            Historial.objects.create(
+                user=request.user,
+                fecha=datetime.now(),
+                rutina=respuesta_v,
+                opinion=opinion,
+                lesiones=lesiones,
+                comentarios=comentarios  # Guardar comentarios
+            )
+
+            if lesiones != 'Ninguna':
+                Lesiones.objects.create(user=request.user, lesion=lesiones, estado=False, fecha=datetime.now())
+
             return redirect('main')
+
         respuesta_v = request.POST.get('r')
-        return render(request, 'rutinaDid.html', {'r':respuesta_v})
-        
+        form = EvaluacionRutinaForm()  # Crear el formulario de evaluación
+        return render(request, 'rutinaDid.html', {'r': respuesta_v, 'form': form})  # Pasar el formulario al template
     else:
         return redirect('main')
     

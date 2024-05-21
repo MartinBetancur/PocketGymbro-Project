@@ -105,7 +105,11 @@ class Historial(models.Model):
     fecha = models.DateField(default=None)
     rutina = models.JSONField()
     lesiones = models.TextField(default=None)
-    opinion = models.IntegerField(choices=CondicionFisica.choices)
+    opinion = models.IntegerField(choices=[(1, '1'), (2, '2'), (3, '3'), (4, '4'), (5, '5'), (6, '6'), (7, '7'), (8, '8'), (9, '9'), (10, '10')], default=5)
+    comentarios = models.TextField(default="", blank=True)  # Nuevo campo para comentarios
+
+    def __str__(self):
+        return f"{self.user.username} - {self.fecha}"
     
 class DietaDiaria(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

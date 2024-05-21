@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from .models import Perfil, Equipamiento_Del_Usuario, DietaDiaria
 from django.forms import ModelForm
-
+from .models import Historial
 
 class SignUpForm(UserCreationForm):
     class Meta:
@@ -28,3 +28,12 @@ class DietaDiariaForm(ModelForm):
     class Meta:
         model = DietaDiaria
         fields = ['comida1','comida2','comida3','comida4','comida5','comida6']
+        
+class EvaluacionRutinaForm(forms.ModelForm):
+    class Meta:
+        model = Historial
+        fields = ['opinion', 'comentarios']
+        widgets = {
+            'opinion': forms.RadioSelect,
+            'comentarios': forms.Textarea(attrs={'rows': 4}),
+        }

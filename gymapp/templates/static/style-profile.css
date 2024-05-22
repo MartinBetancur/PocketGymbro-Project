@@ -1,0 +1,179 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+html, body{
+    height: 100vh;
+}
+
+.cover {
+    background-image: linear-gradient(
+        rgba(0,0,0,0.7),
+        rgba(0,0,0,0.7)
+    ),
+    url(../static/images/home.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    min-height: 100vh;
+}
+
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    padding: 20px;
+    height: auto;
+}
+
+.container {
+    width: 100%;
+    height: auto;
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #fff;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Divide el contenedor en dos columnas de igual ancho */
+    gap: 20px;
+    border-radius: 70px;
+}
+
+.form-container {
+    padding: 20px; /* Espaciado interno */
+    grid-column: span 2;
+}
+
+form {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Divide el formulario en dos columnas */
+    gap: 20px; /* Espacio entre los elementos del formulario */
+}
+
+h1 {
+    text-align: center;
+    margin-top: 20px;
+}
+
+form {
+    margin-top: auto;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+input[type="text"],
+input[type="number"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    grid-column: span 2;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.return-link {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    text-decoration: none;
+    color: #007bff;
+}
+
+.return-link:hover {
+    text-decoration: underline;
+}
+
+input[type="text"] {
+    border-radius: 50px;
+    padding: 10px;
+    border: 1px solid #ccc;
+
+}
+
+input[type="number"] {
+    border-radius: 50px;
+    padding: 10px;
+    border: 1px solid #ccc;
+
+}
+
+select {
+    border-radius: 50px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    outline: none;
+    font-size: 16px;
+
+}
+
+textarea {
+    border-radius: 50px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    outline: none;
+    font-size: 16px;
+    resize: none;
+    /* Desactiva el redimensionamiento */
+    width: 100%;
+    /* Ajusta el ancho del textarea */
+    height: 40px;
+    /* Ajusta la altura del textarea */
+    box-sizing: border-box;
+    /* Asegura que el padding no aumente el ancho total */
+}
+.btn {
+    font-family: "Open Sans", sans-serif;
+    font-size: 16px;
+    letter-spacing: 2px;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #000;
+    cursor: pointer;
+    border: 3px solid;
+    padding: 0.25em 0.5em;
+    box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px;
+    position: relative;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.btn:active {
+    box-shadow: 0px 0px 0px 0px;
+    top: 5px;
+    left: 5px;
+}

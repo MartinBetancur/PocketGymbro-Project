@@ -1,72 +1,232 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" type="text/css" href="{% static 'style-homee.css' %}">
     <title>Login y Registro</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            width: 100vw;
-            flex-direction: column;
-        }
-
-        .button {
-            display: inline-block;
-            padding: 20px 40px;
-            font-size: 18px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 10px;
-            text-decoration: none;
-
-        }
-
-        .button:hover {
-            background-color: #45a049;
-        }
-
-        .button-54 {
-            font-family: "Open Sans", sans-serif;
-            font-size: 16px;
-            letter-spacing: 2px;
-            text-decoration: none;
-            text-transform: uppercase;
-            color: #000;
-            cursor: pointer;
-            border: 3px solid;
-            padding: 0.25em 0.5em;
-            box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px;
-            position: relative;
-            user-select: none;
-            -webkit-user-select: none;
-            touch-action: manipulation;
-        }
-
-        .button-54:active {
-            box-shadow: 0px 0px 0px 0px;
-            top: 5px;
-            left: 5px;
-        }
-    </style>
 </head>
 
 <body>
-    <h2>Bienvenido</h2>
-    <div class="button-container">
-        <a href="accounts/login/" class="button-54">Login</a>
-
-        <a href="accounts/sign-up/" class="button-54">Register</a>
+    <div class="contenedor-header">
+        <header>
+            <h1>POCKET<span class="txtRojo">GYMBRO</span></h1>
+            <nav id="nav" class="responsive">
+                <a href="#inicio" onclick="seleccionar()">Main</a>
+                <a href="#nosotros" onclick="seleccionar()">About Us</a>
+                <a href="#servicios" onclick="seleccionar()">Services</a>
+                <a href="#equipo" onclick="seleccionar()">Team</a>
+                <a href="#contacto" onclick="seleccionar()">Let's begin</a>
+            </nav>
+            <div id="icono-nav" class="nav-responsive" onclick="mostrarOcultarMenu()">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+        </header>
     </div>
 
+    <!--Seccion inicio-->
+    <section id="inicio" class="inicio">
+        <div class="contenido-seccion">
+            <div class="info">
+                <h2>MAKE IT <span class="txtRojo">HAPPEN</span></h2>
+                <p>Succeeding is easier than you think!</p>
+                <a href="#Who we are" class="btn-mas">
+                    <i class="fa-solid fa-circle-chevron-down"></i>
+                </a>
+            </div>
+            <div class="opciones">
+                <div class="opcion">
+                    01. FITNESS
+                </div>
+                <div class="opcion">
+                    02. SOCCER
+                </div>    
+                <div class="opcion">
+                    03. BASKETBALL
+                </div>
+                <div class="opcion">
+                    04. VOLLEYBALL
+                </div>
+                <div class="opcion">
+                    05. UNDERWATER HOCKEY
+                </div>
+                <div class="opcion">
+                    06. TENNIS
+                </div>
+                <div class="opcion">
+                    07. ARCHERY
+                </div>
+                <div class="opcion">
+                    08. ATHLETICS
+                </div>
+                <div class="opcion">
+                    09. CYCLING
+                </div>
+                <div class="opcion">
+                    10. CALISTHENICS
+                </div>
+                <div class="opcion">
+                    11. HOCKEY
+                </div>           
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCION WHO WE ARE -->
+    <section id="nosotros" class="nosotros">
+        <div class="fila">
+            <div class="col">
+                <img class="deportes" src="../static/images/deportes-removebg-preview.png" alt="">
+            </div>
+            <div class="col">
+                <div class="contenedor-titulo">
+                    <div class="numero">
+                        01
+                    </div>
+                    <div class="info">
+                        <span class="frase">YOUR PERSONAL TRAINER IN YOUR POCKET</span>
+                        <h2>ABOUT US</h2>
+                    </div>
+                </div>
+                <p class="p-especial">Start your journey with us now!</p>
+                <p>At POCKET GYMBRO, we're dedicated to making fitness accessible to everyone. Our chatbot simplifies the process, guiding you through personalized workout routines, nutrition plans, and recovery tips, even if you're new to fitness or you have experience in any sport.</p>
+            </div>
+        </div>
+        <hr>
+        <div class="fila-nosotros">
+            <div class="col1">
+                <span class="frase">
+                    <span class="txtRojo">KEEP </span>FOCUS
+                </span>
+                <h2>TRAIN <span class="txtRojo">FOR </span>FREE!</h2>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCION SERVICES -->
+    <section id="servicios" class="servicios">
+        <div class="contenido-servicios">
+            <div class="fila">
+                <div class="col">
+                    <div class="contenedor-titulo">
+                        <div class="numero">
+                            02
+                        </div>
+                        <div class="info">
+                            <span class="frase">IMPROVE YOUR LIFESTYLE</span>
+                            <h2>SERVICES</h2>
+                        </div>
+                    </div>
+                    <p class="p-especial">Discover Personalized Fitness with your POCKET GYMBRO.</p>
+                    <p>With our innovative chatbot, achieving your fitness goals has never been easier. Whether you're into running, weightlifting, yoga, or any other sport, our chatbot tailors workout routines, nutrition plans, and recovery strategies specifically to your needs and preferences.</p>
+                </div>
+                <div class="col">
+                    <img src="../static/images/gym-removebg-preview.png">
+                </div>  
+            </div>     
+        </div>
+        <div class="info-servicios">
+            <table>
+                <tr>
+                    <td>
+                        <i class="fa-solid fa-carrot"></i>
+                        <h3><span class="txtRojo">Nutrition </span>plans</h3>
+                        <p>Whatever i will change</p>
+                    </td>
+                    <td>
+                        <i class="fa-solid fa-dumbbell"></i>
+                        <h3><span class="txtRojo">Training </span>routines</h3>
+                        <p>Whatever i will change</p>
+                    </td>
+                    <td>
+                        <i class="fa-solid fa-child-reaching"></i>
+                        <h3><span class="txtRojo">Recovery </span>routines</h3>
+                        <p>Whatever i will change</p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </section>
+
+    <!-- SECCION TEAM -->
+    <section id="equipo" class="equipo">
+        <div class="contenido-seccion">
+            <div class="contenedor-titulo">
+                <div class="numero">
+                    03
+                </div>
+                <div class="info">
+                    <span class="frase">MEET THE FACES BEHIND OUR SUCCESS</span>
+                    <h2>OUR TEAM</h2>
+                </div>
+            </div>
+            <div class="fila">
+                <div class="col">
+                    <img src="../static/images/martin.png" alt="">
+                    <div class="info">
+                        <h2>MARTIN</h2>
+                        <p>Powerlifting - Jiujitsu</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <img src="../static/images/jacobo.png" alt="">
+                    <div class="info">
+                        <h2>JACOBO</h2>
+                        <p>Underwater Hockey</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <img src="../static/images/daniel.png" alt="">
+                    <div class="info">
+                        <h2>Daniel</h2>
+                        <p>Basketball - Fitness</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <img src="../static/images/jero.png" alt="">
+                    <div class="info">
+                        <h2>JERÓNIMO</h2>
+                        <p>Badminton - Tennis</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCION LET'S BEGIN -->
+    <section id="contacto" class="contacto">
+        <div class="contenido-seccion">
+            <div class="contenedor-titulo">
+                <div class="numero">
+                    04
+                </div>
+                <div class="info">
+                    <span class="frase">START YOUR FITNESS JOURNEY TODAY!</span>
+                    <h2>LET'S BEGIN</h2>
+                </div>
+            </div>
+        </div>
+        <div class="button-container">
+            <a href="accounts/login/" class="button-54">Login</a>
+    
+            <a href="accounts/sign-up/" class="button-54">Register</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="info">
+            <p>2023 - <span class="txtRojo">POCKET GYMBRO</span> All rights reserved</p>
+            <div class="redes">
+                <a href="mailto: martinjavieli@gmail.com" class="email-link">
+                    <i class="fa-solid fa-envelope"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+    <script src="app.js"></script>
 </body>
 
 </html>

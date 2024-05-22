@@ -1,153 +1,115 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" type="text/css" href="{% static 'style-mainPage.css' %}">
     <title>Dashboard</title>
-    <style>
-        /* Reseteo de estilos por defecto */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        /* Estilos básicos del cuerpo */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            color: #333;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-
-        /* Contenedor principal */
-        .container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            max-width: 400px;
-            width: 100%;
-        }
-
-        /* Estilos del encabezado */
-        h1 {
-            margin-bottom: 20px;
-            font-size: 24px;
-            color: #444;
-        }
-
-        /* Estilos del formulario de cierre de sesión */
-        .logout-form {
-            margin-bottom: 20px;
-        }
-
-        .btn-logout {
-            background-color: #ff4b5c;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .btn-logout:hover {
-            background-color: #ff6b6b;
-        }
-
-        /* Estilos de los enlaces */
-        .links {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .btn {
-            background-color: #007bff;
-            color: white;
-            text-decoration: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-            text-align: center;
-        }
-
-        .btn:hover {
-            background-color: #0056b3;
-        }
-
-        .cover {
-            background-image: url('/static/images/third.jpg');
-            background-position: center center;
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-attachment: fixed;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .btn {
-            font-family: "Open Sans", sans-serif;
-            font-size: 16px;
-            letter-spacing: 2px;
-            text-decoration: none;
-            text-transform: uppercase;
-            color: #000;
-            cursor: pointer;
-            border: 3px solid;
-            padding: 0.25em 0.5em;
-            box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px;
-            position: relative;
-            user-select: none;
-            -webkit-user-select: none;
-            touch-action: manipulation;
-        }
-
-        .btn:active {
-            box-shadow: 0px 0px 0px 0px;
-            top: 5px;
-            left: 5px;
-        }
-        
-        
-    
-    </style>
 </head>
 
 <body>
-    <div class="cover">
-        <div class="container">
-            <h1>Bienvenido</h1>
-            <form action="logout/" method="POST" class="logout-form">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-logout">Cerrar Sesión</button>
-            </form>
-            <div class="links">
-                <a href="/main/profile/" class="btn">Perfil</a>
-                <a href="/main/equipment/" class="btn">Equipo</a>
-                <a href="/main/dietbot/" class="btn">Dieta</a>
-                <a href="/admin/" class="btn">Admin</a>
-                <a href="/main/macrosCalc/" class="btn">Macros</a>
-                <a href="/main/rutinas/" class="btn">Routine</a>
-                <a href="/main/visualDieta/" class="btn">View your weekly diet</a>
-                <a href="/main/historial_R/" class="btn">View your routine history</a>
-                <a href="/main/lesiones/" class="btn">View your injuries</a>
-                <a href="/main/verRsemanal/" class="btn">View your weekly routine</a>
-            </div>
+    <header class="section_header">
+        <div class="header__content">
+            <span class="bg__blur"></span>
+            <span class="bg__blur header__blur"></span>
+            <h1><span>Welcome</span> to POCKET GYMBRO</h1>
         </div>
-    </div>
+    </header>
+
+
+    <section class="section__container explore__container">
+        <div class="explore__header">
+        </div>
+        <div class="explore__grid">
+        <div class="explore__card">
+            <span><i class="fa-solid fa-user"></i></span>
+            <h4>Profile</h4>
+            <p>
+            Manage your personal details and set your fitness 
+            goals to customize your experience.
+            </p>
+            <a href="/main/profile/" class="btn"><i class="fa-solid fa-arrow-right-long"></i></a>
+        </div>
+        <div class="explore__card">
+            <span><i class="fa-solid fa-dumbbell"></i></span>
+            <h4>Equipment</h4>
+            <p>
+            Organize and keep track of your exercise equipment to optimize your workouts.
+            </p>
+            <a href="/main/equipment/" class="btn"><i class="fa-solid fa-arrow-right-long"></i></a>
+        </div>
+        <div class="explore__card">
+            <span><i class="fa-solid fa-carrot"></i></span>
+            <h4>Diet</h4>
+            <p>
+            Adjust your daily calorie intake, macronutrient distribution, 
+            and create meal plans tailored to your needs.
+            </p>
+            <a href="/main/dietbot/" class="btn"><i class="fa-solid fa-arrow-right-long"></i></a>
+        </div>
+        <div class="explore__card">
+            <span><i class="fa-solid fa-bowl-food"></i></span>
+            <h4>Macros</h4>
+            <p>
+            Control your intake of proteins, carbohydrates, 
+            and fats to meet your nutritional goals.
+            </p>
+            <a href="/main/macrosCalc/" class="btn"><i class="fa-solid fa-arrow-right-long"></i></a>
+        </div>
+        <div class="explore__card">
+            <span><i class="fa-solid fa-medal"></i></span>
+            <h4>Routine</h4>
+            <p>
+            Plan your workout sessions, establish frequency, 
+            and take proper breaks to maximize progress.
+            </p>
+            <a href="/main/rutinas/" class="btn"><i class="fa-solid fa-arrow-right-long"></i></a>
+        </div>
+        <div class="explore__card">
+            <span><i class="fa-solid fa-calendar-week"></i></span>
+            <h4>View your weekly diet</h4>
+            <p>
+            Visualize your weekly meal plans and gain insights 
+            into your nutrition to make adjustments as needed.
+            </p>
+            <a href="/main/visualDieta/" class="btn"><i class="fa-solid fa-arrow-right-long"></i></a>
+        </div>
+        <div class="explore__card">
+            <span><i class="fa-solid fa-bookmark"></i></span>
+            <h4>View your routine history</h4>
+            <p>
+            Track your progress over time by reviewing 
+            your workout logs and visualizing your evolution.
+            </p>
+            <a href="/main/historial_R/" class="btn"><i class="fa-solid fa-arrow-right-long"></i></a>
+        </div>
+        <div class="explore__card">
+            <span><i class="fa-solid fa-file-medical"></i></span>
+            <h4>View your injuries</h4>
+            <p>
+            Record past injuries, monitor your rehabilitation progress, 
+            and learn strategies for preventing future injuries.
+            </p>
+            <a href="/main/lesiones/" class="btn"><i class="fa-solid fa-arrow-right-long"></i></a>
+        </div>
+        <div class="explore__card">
+            <span><i class="fa-solid fa-book-open"></i></span>
+            <h4>View your weekly routine</h4>
+            <p>
+            Review your weekly exercise schedule and get an overview of 
+            your training to maintain a consistent approach.
+            </p>
+            <a href="/main/verRsemanal/" class="btn"><i class="fa-solid fa-arrow-right-long"></i></a>
+        </div>
+        </div>
+        <form action="logout/" method="POST" class="logout-form">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-logout">Cerrar Sesión</button>
+        </form>
+    </section>
 
 </body>
 

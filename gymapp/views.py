@@ -74,12 +74,10 @@ def signupgo(request):
     else:
 
         form_data = request.session.get('form_data')
-        print(form_data)
         if form_data:
             
             form = SignUpForm(form_data)
             if form.is_valid():
-                print(True)
                 username = form.cleaned_data.get('username')
                 password = form.cleaned_data.get('password1')
                 email = form.cleaned_data.get('email')
@@ -126,7 +124,6 @@ def equipment(request):
         equipamiento = get_object_or_404(Equipamiento_Del_Usuario,user = request.user)
         form = EquipamientoForm(request.POST, instance=equipamiento)
         form.save()
-        print(form)
         return redirect('main')
 
 @login_required
@@ -253,7 +250,6 @@ La cantidad de ejercicios depende de tu criterio o de lo que la persona especifi
 Por ultimo solamente quiero que la respuesta que me des sea el json, no quiero que me des ningun mensaje mas para que des un mejor rendimiento.'''
         respuestaVanilla = get_completion(solicitud)
         respuestaDict = repuestaJson(respuestaVanilla)
-        print(respuestaDict["Tiempo_Aproximado"])
 
         return render(request, 'rutinas.html', {'respuestaV': respuestaVanilla, 'entreno': respuestaDict})
     else:
@@ -317,7 +313,6 @@ def rutina_go(request):
             respuesta_v = repuestaJson(request.POST.get('r'))
             opinion = int(request.POST.get('opinion'))
             lesiones = request.POST.get('lesiones')
-            print(lesiones)
             if lesiones == '':
                 lesiones = 'Ninguna'
                 Historial.objects.create(user = request.user, fecha = datetime.now(), rutina = respuesta_v, opinion = opinion, lesiones = lesiones)

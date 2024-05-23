@@ -31,6 +31,8 @@
 
 6. Visit `http://localhost:8000` in your web browser to access the online fish store.
 
+7. Change in /.env file OPENAI_API_KEY=*************************** and put a correct one
+
 ## Requirements
 
 Check the `requirements.txt` file for a list of required packages and versions.
